@@ -1,8 +1,14 @@
 import React from "react";
-import Router from "./shared/Router";
+import Main from "./view/Main";
+import Header from "./view/Header";
 
 function App() {
-  return <Router />;
+  return (
+    <div>
+      <Header />
+      <Main />
+    </div>
+  );
 }
 
 export default App;
