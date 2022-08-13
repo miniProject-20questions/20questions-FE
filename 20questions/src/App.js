@@ -1,7 +1,14 @@
 import React from "react";
+import Main from "./view/Main";
+import Header from "./view/Header";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <Header />
+      <Main />
+    </div>
+  );
 }
 
 export default App;
