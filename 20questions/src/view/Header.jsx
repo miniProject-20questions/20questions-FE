@@ -5,7 +5,7 @@ function Header() {
     return (
         <HeaderBox>
             <p>
-                헤더입니다
+                20 Question.
             </p>
             <div>
                 <HeaderBtns>로그인</HeaderBtns>
@@ -18,7 +18,11 @@ function Header() {
 export default Header;
 
 let HeaderBox = styled.div`
-    background-color: red;
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.266), rgba(220, 207, 207, 0.541)), url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
+
     height: 130px;
     width: 80%;
     margin: auto;
@@ -28,8 +32,8 @@ let HeaderBox = styled.div`
 
     border-radius: 10px;
     p {
-        margin: 43px auto 0 auto;
-        font-size: 25px;
+        margin: 38px auto 0 auto;
+        font-size: 33px;
     }
     div{
         margin: auto 0 0 auto;
@@ -43,6 +47,12 @@ let HeaderBox = styled.div`
 
 
 let HeaderBtns = styled.button`
-    min-width: 100px;
-    margin-right: 10px;
+    min-width: 80px;
+    margin-right: 3px;
+    width: 8%;
+    padding: 3px;
+    border: 1px solid #ff00668d;
+    border-radius: 4px;
+    background-color: #ff00668a;
+    color: white;
     `
