@@ -14,7 +14,7 @@ function Main() {
     const [cateCount, setCateCount] = useState(2);
     const handleChange = (e) => {
         setCateCount(e.target.value)
-      }
+    }
 
     const indexOfLastPost = page * limit;
     const indexOfFirstPost = indexOfLastPost - limit;
@@ -42,8 +42,12 @@ function Main() {
             <IngList>
                 {currentCountings.map((count) => (
                     count.category === +cateCount ?
-                        <div key={count.id}>
-                            {count.title}({count.id})
+                        <div key={count.quizId}>
+                            <Img></Img>
+                            <p>제목 {count.title}</p>
+                            <p>작성자 {count.nickname}님</p>
+                            <p>작성자 답변 개수{count.count}</p>
+                            <p>작성 일자 {count.date}</p>
                         </div> :
                         ''
                 ))}
@@ -106,6 +110,9 @@ let IngList = styled.div`
         border-radius: 10px;
         border: solid 3px gray;
         box-shadow: 6px 6px 6px 6px #0000ff19;
+        p {
+            margin: 5px auto auto 8px;
+        }
     }
     `
 
@@ -123,4 +130,14 @@ let PostBtn = styled.button`
     border-radius: 4px;
     background-color: #ff00668a;
     color: white;
+`
+
+const Img = styled.p`
+    margin: auto;
+    width: 95%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.266), rgba(220, 207, 207, 0.541)), url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
 `
