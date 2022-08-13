@@ -1,28 +1,29 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Pagination from "../components/Pagination";
+import Pagination from "../components/Pagination"
 import PostingModal from "../components/PostingModal";
 
 import { RESP } from "../Mock_API/respons";
 
 function Main() {
-  const ingLists = RESP.data;
-  const [limit] = useState(6);
-  const [page, setPage] = useState(1);
+    const ingLists = RESP.data
+    const [limit] = useState(6);
+    const [page, setPage] = useState(1);
 
-    const [category, setCategory] = useState(2);
+    const [cateCount, setCateCount] = useState(2);
     const handleChange = (e) => {
-        setCategory(e.target.value)
+        setCateCount(e.target.value)
       }
 
+    const indexOfLastPost = page * limit;
+    const indexOfFirstPost = indexOfLastPost - limit;
+    const currentCountings = ingLists.slice(
+        indexOfFirstPost,
+        indexOfLastPost
+    );
 
-  const indexOfLastPost = page * limit;
-  const indexOfFirstPost = indexOfLastPost - limit;
-  const currentCountings = ingLists.slice(indexOfFirstPost, indexOfLastPost);
-
-  let [modal, setModal] = useState(false);
+    let [modal, setModal] = useState(false);
 
     return (
         <MainBox>
@@ -40,13 +41,9 @@ function Main() {
             </Select>
             <IngList>
                 {currentCountings.map((count) => (
-                    count.category === +category ?
-                        <div key={count.quizId}>
-                            <Img></Img>
-                            <p>제목 {count.title}</p>
-                            <p>작성자 {count.nickname}님</p>
-                            <p>작성자 답변 개수{count.count}</p>
-                            <p>작성 일자 {count.date}</p>
+                    count.category === +cateCount ?
+                        <div key={count.id}>
+                            {count.title}({count.id})
                         </div> :
                         ''
                 ))}
@@ -65,63 +62,50 @@ function Main() {
             {modal === true ? <PostingModal /> : ''}
         </MainBox>
     );
-
 }
 
 export default Main;
 
 let MainBox = styled.div`
-  height: 530px;
-  width: 90%;
-  margin: 10px auto;
-`;
+    height: 530px;
+    width: 90%;
+    margin: 10px auto;
+`
 
 let Select = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
-    margin-right: 10px;
-  }
-  select {
-    padding: 2px;
-    text-align: center;
-    width: 30%;
-    border-radius: 5px;
-  }
-`;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    div {
+        margin-right: 10px;
+    }
+    select {
+        padding: 2px;
+        text-align: center;
+        width: 30%;
+        border-radius: 5px;
+    }
+`
 
 let IngList = styled.div`
-  height: 455px;
-  background-color: #c4c41127;
-  margin: 8px auto 8px auto;
-  border-radius: 10px;
-  border: solid 3px gray;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  box-shadow: 6px 6px 6px 6px #0000ff19;
-  padding: 5px;
-  div {
-    width: 30%;
-    height: 215px;
-    margin: 3px;
-    background-color: #00000031;
+    height:455px;
+    background-color: #c4c41127;
+    margin: 8px auto 8px auto;
     border-radius: 10px;
     border: solid 3px gray;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     box-shadow: 6px 6px 6px 6px #0000ff19;
     padding: 5px;
     div { 
         width: 30%;
         height: 215px;
-        margin: auto;
+        margin: 3px;
         background-color: #00000031;
         border-radius: 10px;
         border: solid 3px gray;
         box-shadow: 6px 6px 6px 6px #0000ff19;
-    }
-    p {
-        margin: 5px auto 5px auto;
     }
     `
 
@@ -139,13 +123,4 @@ let PostBtn = styled.button`
     border-radius: 4px;
     background-color: #ff00668a;
     color: white;
-`
-
-const Img = styled.p`
-    width: 95%;
-    height: 100px;
-    background-size: cover;
-    background-position: center;
-    background-color: transparent;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.266), rgba(220, 207, 207, 0.541)), url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
 `
