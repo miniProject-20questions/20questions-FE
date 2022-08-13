@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import getlist from "../modules/Listing"
+import getlist from "../modules/MainList"
 
 const store = configureStore({
   reducer: { getlist: getlist,  },
