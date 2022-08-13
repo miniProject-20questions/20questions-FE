@@ -1,29 +1,28 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Pagination from "../components/Pagination"
+import Pagination from "../components/Pagination";
 import PostingModal from "../components/PostingModal";
 
 import { RESP } from "../Mock_API/respons";
 
 function Main() {
-    const ingLists = RESP.data
-    const [limit] = useState(6);
-    const [page, setPage] = useState(1);
+  const ingLists = RESP.data;
+  const [limit] = useState(6);
+  const [page, setPage] = useState(1);
 
     const [category, setCategory] = useState(2);
     const handleChange = (e) => {
         setCategory(e.target.value)
       }
 
-    const indexOfLastPost = page * limit;
-    const indexOfFirstPost = indexOfLastPost - limit;
-    const currentCountings = ingLists.slice(
-        indexOfFirstPost,
-        indexOfLastPost
-    );
 
-    let [modal, setModal] = useState(false);
+  const indexOfLastPost = page * limit;
+  const indexOfFirstPost = indexOfLastPost - limit;
+  const currentCountings = ingLists.slice(indexOfFirstPost, indexOfLastPost);
+
+  let [modal, setModal] = useState(false);
 
     return (
         <MainBox>
@@ -66,40 +65,50 @@ function Main() {
             {modal === true ? <PostingModal /> : ''}
         </MainBox>
     );
+
 }
 
 export default Main;
 
 let MainBox = styled.div`
-    height: 530px;
-    width: 90%;
-    margin: 10px auto;
-`
+  height: 530px;
+  width: 90%;
+  margin: 10px auto;
+`;
 
 let Select = styled.div`
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    div {
-        margin-right: 10px;
-    }
-    select {
-        padding: 2px;
-        text-align: center;
-        width: 30%;
-        border-radius: 5px;
-    }
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    margin-right: 10px;
+  }
+  select {
+    padding: 2px;
+    text-align: center;
+    width: 30%;
+    border-radius: 5px;
+  }
+`;
 
 let IngList = styled.div`
-    height:455px;
-    background-color: #c4c41127;
-    margin: 8px auto 8px auto;
+  height: 455px;
+  background-color: #c4c41127;
+  margin: 8px auto 8px auto;
+  border-radius: 10px;
+  border: solid 3px gray;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 6px 6px 6px 6px #0000ff19;
+  padding: 5px;
+  div {
+    width: 30%;
+    height: 215px;
+    margin: 3px;
+    background-color: #00000031;
     border-radius: 10px;
     border: solid 3px gray;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     box-shadow: 6px 6px 6px 6px #0000ff19;
     padding: 5px;
     div { 
