@@ -5,7 +5,17 @@ function PostinModal() {
   return (
     <ModalBody>
       <div>
-        dd
+        문제 제목<input></input>
+        정답<input></input>
+        <select>
+          <option value={1}>인물</option>
+          <option value={2}>동물</option>
+          <option value={3}>영화</option>
+          <option value={4}>음악</option>
+          <option value={5}>가전제품</option>
+          <option value={6}>기타</option>
+        </select>
+        <p><button>퀴즈 등록 하기</button><span><button>취소</button></span></p>
       </div>
     </ModalBody>
   );
@@ -13,7 +23,7 @@ function PostinModal() {
 
 export default PostinModal;
 
-let ModalBody = styled.div`
+let ModalBody = styled.form`
   position: fixed;
   left: 0;
   right: 0;
@@ -22,6 +32,8 @@ let ModalBody = styled.div`
   z-index: 100;
   background: rgba( 0, 0, 0, 0.6);
   display: flex;
+
+  
   div {
     background-color: white;
     border-radius: 10px;
@@ -30,5 +42,11 @@ let ModalBody = styled.div`
     margin: auto;
     width: 80%;
     height: 80%;
+    input {
+      width: 300px;
+    }
+    select {
+      width: 300px;
+    }
   }
 `

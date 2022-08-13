@@ -42,8 +42,8 @@ function Main() {
             <IngList>
                 {currentCountings.map((count) => (
                     count.category === +cateCount ?
-                        <div key={count.id}>
-                            {count.title}({count.id})
+                        <div key={count.quizId}>
+                            {count.title}({count.quizId})
                         </div> :
                         ''
                 ))}
