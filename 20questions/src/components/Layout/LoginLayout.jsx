@@ -15,7 +15,7 @@ function LoginLayout() {
 
   return (
     <Layout>
-      <Title>로그인</Title>
+      <Title>{toggle ? "로그인" : "회원가입"}</Title>
       <Container>
         <Box>
           <InputInfo placeholder="아이디" onClick={ShowHelp} />

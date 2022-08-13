@@ -1,12 +1,14 @@
 import React from "react";
-import Main from "./view/Main";
+import Router from "./shared/Router";
+
+//컴포넌트
 import Header from "./view/Header";
 
 function App() {
   return (
     <div>
       <Header />
-      <Main />
+      <Router />
     </div>
   );
 }
