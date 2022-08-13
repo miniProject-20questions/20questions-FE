@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import getlist from "../modules/Listing"
 
 const store = configureStore({
-  // 나중에 reducer 추가 등록시 객체 안에 넣으면 됨
+  reducer: { getlist: getlist,  },
 });
 
 export default store;
+

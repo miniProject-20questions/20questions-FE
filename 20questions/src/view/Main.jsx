@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import axios from "axios"
 import Pagination from "../components/Pagination"
 import PostingModal from "../components/PostingModal";
 
 import { RESP } from "../Mock_API/respons";
 
 function Main() {
-    const ingLists = RESP.data
+    // const ingLists = (axios.get("http://localhost:3001/api/quiz").data);
+    const ingLists = RESP.data;
+
     const [limit] = useState(6);
     const [page, setPage] = useState(1);
 
-    const [cateCount, setCateCount] = useState(2);
+    const [categoty, setCategoty] = useState(2);
     const handleChange = (e) => {
-        setCateCount(e.target.value)
+        setCategoty(e.target.value)
     }
 
     const indexOfLastPost = page * limit;
@@ -41,7 +43,7 @@ function Main() {
             </Select>
             <IngList>
                 {currentCountings.map((count) => (
-                    count.category === +cateCount ?
+                    count.category === +categoty ?
                         <div key={count.quizId}>
                             <Img></Img>
                             <p>제목 {count.title}</p>
