@@ -1,12 +1,13 @@
 export const RESP = {
     data: 
+    //작성 날짜와 질문 카운트 추가 필요, answer과 url(이미지) 필요 없을 
     [
         {
             id:"Minsu1", 
             title: "뭘까요?", 
             category: 1, 
-            answer : "판다", 
-            url : "사진.jpg"
+            date : "", 
+            count : 1
         }, 
         {
             id: "Minsu2", 

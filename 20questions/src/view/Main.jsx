@@ -29,7 +29,7 @@ function Main() {
         <MainBox>
             <Select>
                 <select onChange={(e) => handleChange(e)}>
-                    <option>--- 카테고리 선택 ---</option>
+                    <option value={2}>--- 카테고리 선택 ---</option>
                     <option value={1}>인물</option>
                     <option value={2}>동물</option>
                     <option value={3}>영화</option>
