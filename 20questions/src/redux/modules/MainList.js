@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
+
 const initialState = {
   data: [],
+  isLoading: false, //
+  error: null, //
 }
 
 
@@ -23,11 +26,14 @@ const getListSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [__getList.pending]: (state) => {
+      state.isLoading = true; //
+    },
     [__getList.fulfilled]: (state, action)=> {
       state.data = action.payload; 
     },
     [__getList.rejected] : (state, action) => {
-      console.log(action);
+      console.log(action); //생략가능부분
     }
   },
 });

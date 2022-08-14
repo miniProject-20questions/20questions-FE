@@ -1,14 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { __Posting } from "../redux/modules/PostingQuiz"
+
 
 function PostinModal() {
+  const dispatch = useDispatch();
+
   const [category, setCategory] = useState(0);
   const [title, setTitle] = useState('');
   const [answer, setAnswer] = useState('');
 
   const onSubmitHandler = (e) => {
-    console.log(title, answer, category)
+    e.preventDefault();
+    title === '' ? alert("문제를 입력해주세요!") : 
+    answer === '' ? alert('정답을 입력해주세요!') :
+    category === 0 ? alert("카테고리를 선택해주세요!") :
+    dispatch(__Posting({category, title, answer}))
   }
+  
   return (
     <ModalBody onSubmit={onSubmitHandler}>
       <div>
@@ -23,7 +33,7 @@ function PostinModal() {
           onChange={(e) => {
             setAnswer(e.target.value);
           }}
-          placeholder="이곳에 답변을 입력해주세요."></input>
+          placeholder="이곳에 정답을 입력해주세요."></input>
         <select type="text"
           value={category}
           onChange={(e) => {
