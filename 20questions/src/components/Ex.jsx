@@ -10,10 +10,10 @@ const Ex = () => {
     return (
         <>
             <Body> 
-                {comments.map((newcomment) => (
-                    <div key={newcomment.commentId}>
-                        {newcomment.solved === null ? <div>{newcomment.content}/출제자가 O/X를 선택하지 않았습니다.</div> : 
-                        <div>{newcomment.content}/{newcomment.solved === false ? <div>X</div> : <div>O</div>}</div>}
+                {comments.map((comment) => (
+                    <div key={comment.count}>
+                        {comment.solved === null ? <div>{comment.content}/출제자가 O/X를 선택하지 않았습니다.</div> : 
+                        <div>{comment.content}/{comment.solved === false ? <div>X</div> : <div>O</div>}</div>}
                     </div>      
                 ))}
             </Body>
