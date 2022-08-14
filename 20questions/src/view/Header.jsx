@@ -34,7 +34,7 @@ let HeaderBox = styled.div`
     url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
 
   height: 130px;
-  width: 80%;
+  width: 60%;
   margin: auto;
 
   display: flex;
@@ -60,7 +60,7 @@ let HeaderBtn = styled.button`
   margin-right: 3px;
   width: 8%;
   padding: 3px;
-  border: 1px solid #ff00668d;
+  border: 1px solid black;
   border-radius: 4px;
   background-color: #ff00668a;
   color: white;

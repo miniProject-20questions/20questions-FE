@@ -92,6 +92,7 @@ let ModalBody = styled.div`
     text-align: center;
   }
   p {
+    margin: auto;
     font-size: 12px;
     color: red;
     font-weight: bold;

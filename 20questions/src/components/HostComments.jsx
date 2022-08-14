@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { RESP } from "../Mock_API/respons";
 
 //닉네임으로 1차 분할 //댓글수로 2차 분할 //solved로 3차 분할
-const Ex = () => {
+const HostComments = () => {
     const { data } = RESP;
     const comments = data
     const [view, setView] = useState(true);
@@ -18,30 +18,13 @@ const Ex = () => {
 
     return (
         <>
-            {/* <div className="게스트구역">
-                <GuestBody>
-                    {comments.map((comment) => (
-                        <div key={comment.count}>
-                            {comment.solved === null ? <div>
-                                <div>{comment.content}/출제자가 O/X를 선택하지 않았습니다.</div>
-                            </div> :
-                                <div>{comment.content}/{comment.solved === false ?
-                                    <div>X</div> :
-                                    <div>O</div>}</div>}
-                        </div>
-                    ))}
-                </GuestBody>
-                <div>
-                    {view === true && comments.length <= 9 ? <div><input></input></div> : ''}
-                </div>
-            </div> */}
-            <div className="호스트구역">
+            <div>
                 <HostBody>
                     {comments.map((comment) => (
-                        <div key={comment.count}>
+                        <div key={comment.count} style={{'width': '100%'}}>
                             {comments.length === 0 ? '' :
                                 <div>
-                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>O</button></p></DoneCheckdiv>}</div>}
+                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
                                 </div>}
                         </div>
                     ))}
@@ -53,17 +36,10 @@ const Ex = () => {
 };
 
 
-export default Ex;
-
-let GuestBody = styled.div`
-    background-color: red; 
-    width: 600px;
-    height: 500px;
-    margin: auto;
-`
+export default HostComments;
 
 let HostBody = styled.div`
-    background-color: #80008018; 
+    background-color: #ff7f5097; 
     min-width: 45%;
     max-width: 60%;
     height: 400px;
@@ -92,12 +68,11 @@ let HostBody = styled.div`
         align-items : center;
         
         min-width: 60px;
-        margin-right: 3px;
-        margin-top: 20px;
+        margin: 30px 10px auto 10px; 
         padding: 3px;
-        border: 1px solid #ff00668d;
+        border: 1px solid black;
         border-radius: 4px;
-        background-color: #ff00668a;
+        background-color: #ff006686;
         color: white;
     }
     p {
@@ -115,6 +90,7 @@ const Checkdiv = styled.div`
     padding: 5px;
     text-overflow: ellipsis;
     white-space: normal;
+    background-color: #dd1a9285;
 `
 
 const DoneCheckdiv = styled.div`
@@ -125,4 +101,5 @@ const DoneCheckdiv = styled.div`
     padding: 5px;
     text-overflow: ellipsis;
     white-space: normal;
+    background-color: #dd1a9285;
 `

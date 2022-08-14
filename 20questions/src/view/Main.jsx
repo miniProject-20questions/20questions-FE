@@ -113,6 +113,10 @@ let IngList = styled.div`
     justify-content: center;
     box-shadow: 6px 6px 6px 6px #0000ff19;
     padding: 5px;
+
+    
+    flex-direction: column;
+        align-items: center;
     div { 
         width: 30%;
         height: 215px;
@@ -121,8 +125,10 @@ let IngList = styled.div`
         border-radius: 10px;
         border: solid 3px gray;
         box-shadow: 6px 6px 6px 6px #0000ff19;
+        white-space: nowrap;
         p {
-            margin: 5px auto auto 8px;
+            margin: 5px auto auto 5px;
+            font-weight: bold;
         }
     }
     `
