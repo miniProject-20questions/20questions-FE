@@ -7,7 +7,6 @@ const Ex = () => {
     const { data } = RESP;
     const comments = data
     const [view, setView] = useState(true);
-    console.log(view)
 
     useEffect(() => {
         comments.map((comment) => {
@@ -19,7 +18,7 @@ const Ex = () => {
     
     return (
         <>
-            <div className="게스트구역">
+            {/* <div className="게스트구역">
                 <GuestBody>
                     {comments.map((comment) => (
                         <div key={comment.count}>
@@ -35,19 +34,20 @@ const Ex = () => {
                 <div>
                     {view === true && comments.length <= 9 ? <div><input></input></div> : ''}
                 </div>
-            </div>
-            {/* <div className="호스트구역">
+            </div> */}
+            <div className="호스트구역">
                 <HostBody>
                     {comments.map((comment) => (
                         <div key={comment.count}>
-                            {comment.count === 0 ? <div>등록된 질문이 없습니다.</div> :
-                                <div>
-                                    {if (comment.solved === null)}
+                            {comments.length === 0 ? '' :
+                                <div> 
+                                    {comment.solved === null ? <div>{comment.content}<button>O</button><button>X</button></div> : <div>{comment.content}{comment.solved === true ? <p>O</p> : <p>X</p> }</div> }
                                 </div>}
                         </div>
                     ))}
                 </HostBody>
-            </div> */}
+                {comments.length === 0 ? <div>등록된 질문이 없습니다.</div> : ''}
+            </div>
         </>
     );
 };
