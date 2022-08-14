@@ -1,20 +1,14 @@
 export const RESP = {
     data: [
         {
-            content: "글자인가요?",
+            content: "1버?",
             solved: false,
-            count: 0,
-            answer: "인간"
-        },
-        {
-            content: "글자인가요?",
-            solved: true,
             count: 1,
             answer: "인간"
         },
         {
             content: "글자인가요?",
-            solved: false,
+            solved: true,
             count: 2,
             answer: "인간"
         },
@@ -43,22 +37,23 @@ export const RESP = {
             answer: "인간"
         },
         {
-            content: "글자인가요?",
+            content: "7번?",
             solved: false,
             count: 7,
             answer: "인간"
         },
         {
-            content: "글자인가요?",
+            content: "8번?",
             solved: false,
             count: 8,
             answer: "인간"
         },
         {
-            content: "글자인가요?",
+            content: "9번?",
             solved: null,
             count: 9,
             answer: "인간"
         },
+        
     ]
 }
