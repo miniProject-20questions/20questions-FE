@@ -56,7 +56,7 @@ function Main() {
                             <Img></Img>
                             <p>제목 {count.title}</p>
                             <p>작성자 {count.nickname}님</p>
-                            <p>작성자 답변 개수{count.count}</p>
+                            <p>작성자 답변 개수{count.count} / 20</p>
                             <p>작성 일자 {count.date}</p>
                         </div> :
                         ''

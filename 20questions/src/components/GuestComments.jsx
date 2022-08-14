@@ -21,7 +21,7 @@ const GuestComments = () => {
             <div className="게스트구역">
                 <GuestBody>
                 <div>
-                    {view === true && comments.length <= 9 ? <div><input></input><button>질문하기</button></div> : ''}
+                    {view === true && comments.length <= 19 ? <div><input></input><button>질문하기</button></div> : ''}
                 </div>
                     {comments.map((comment) => (
                         <GuestList key={comment.count}>
