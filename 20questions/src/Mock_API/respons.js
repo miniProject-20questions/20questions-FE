@@ -1,44 +1,74 @@
 export const RESP = {
     data: [
         {
-            nickname: "수민",
-            quizId: 1,
-            title: "뭘까요?",
-            count: 7,
-            category: 1,
-            date: "2020 / 08 / 13"
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 0,
+            answer: "인간"
         },
         {
-            nickname: "수민",
-            quizId: 2,
-            title: "뭘까요?",
-            count: 7,
-            category: 1,
-            date: "2020 / 08 / 13"
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 1,
+            answer: "인간"
         },
         {
-            nickname: "종수",
-            quizId: 3,
-            title: "뭘까요?",
-            count: 7,
-            category: 1,
-            date: "2020 / 08 / 13"
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 2,
+            answer: "인간"
         },
         {
-            nickname: "수민",
-            quizId: 4,
-            title: "뭘까요?",
-            count: 7,
-            category: 1,
-            date: "2020 / 08 / 13"
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 3,
+            answer: "인간"
         },
         {
-            nickname: "종민",
-            quizId: 5,
-            title: "뭘까요?",
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 4,
+            answer: "인간"
+        },
+        {
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 5,
+            answer: "인간"
+        },
+        {
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 6,
+            answer: "인간"
+        },
+        {
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
             count: 7,
-            category: 1,
-            date: "2020 / 08 / 13"
+            answer: "인간"
+        },
+        {
+            commentId: 1,
+            content: "글자인가요?",
+            solved: false,
+            count: 8,
+            answer: "인간"
+        },
+        {
+            commentId: 1,
+            content: "글자인가요?",
+            solved: null,
+            count: 9,
+            answer: "인간"
         },
     ]
 }

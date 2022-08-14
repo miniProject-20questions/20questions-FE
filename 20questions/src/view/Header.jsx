@@ -8,14 +8,13 @@ function Header() {
     <HeaderBox>
       <p>20 Question.</p>
       <div>
-        <HeaderBtns
+        <HeaderBtn
           onClick={() => {
             navigate("/user");
           }}
         >
           로그인
-        </HeaderBtns>
-        <HeaderBtns>회원가입</HeaderBtns>
+        </HeaderBtn>
       </div>
     </HeaderBox>
   );
@@ -48,7 +47,7 @@ let HeaderBox = styled.div`
   }
   div {
     margin: auto 0 0 auto;
-    width: 215px;
+    width: 100px;
     height: 30px;
     display: flex;
     justify-content: center;
@@ -56,7 +55,7 @@ let HeaderBox = styled.div`
   }
 `;
 
-let HeaderBtns = styled.button`
+let HeaderBtn = styled.button`
   min-width: 80px;
   margin-right: 3px;
   width: 8%;

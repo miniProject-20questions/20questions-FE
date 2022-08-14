@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Pagination from "../components/Pagination"
 import PostingModal from "../components/PostingModal";
-import {__getList} from '../redux/modules/MainList'
+import DetailModal from "../components/DetailModal"
+import { __getList } from '../redux/modules/MainList'
 
 function Main() {
 
@@ -29,8 +30,9 @@ function Main() {
         indexOfLastPost
     );
 
-    let [modal, setModal] = useState(false);
-        
+    let [postingmodal, setPostingModal] = useState(false);
+    let [detailmodal, setDetailModal] = useState(false);
+
     return (
         <MainBox>
             <Select>
@@ -48,7 +50,9 @@ function Main() {
             <IngList>
                 {currentCountings.map((count) => (
                     count.category === +categoty ?
-                        <div key={count.quizId}>
+                        <div key={count.quizId} onClick={() => {
+                            setDetailModal(true);
+                        }}>
                             <Img></Img>
                             <p>제목 {count.title}</p>
                             <p>작성자 {count.nickname}님</p>
@@ -59,7 +63,7 @@ function Main() {
                 ))}
             </IngList>
             <PostBtn onClick={() => {
-                setModal(true);
+                setPostingModal(true);
             }}>글쓰기</PostBtn>
             <footer>
                 <Pagination
@@ -69,7 +73,8 @@ function Main() {
                     setPage={setPage}
                 />
             </footer>
-            {modal === true ? <PostingModal /> : ''}
+            {postingmodal === true ? <PostingModal /> : ''}
+            {detailmodal === true ? <DetailModal /> : ''}
         </MainBox>
     );
 }

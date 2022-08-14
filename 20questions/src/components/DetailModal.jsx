@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { __Posting } from "../redux/modules/PostingQuiz"
 
 
-function PostinModal() {
+function DetailModal() {
   const dispatch = useDispatch();
 
   const [category, setCategory] = useState(0);
@@ -17,7 +17,6 @@ function PostinModal() {
     answer === '' ? alert('정답을 입력해주세요!') :
     category === 0 ? alert("카테고리를 선택해주세요!") :
     dispatch(__Posting({category, title, answer}));
-    alert("퀴즈가 등록되었습니다.")
     window.location.replace("/");
   }
  
@@ -56,7 +55,7 @@ function PostinModal() {
   );
 }
 
-export default PostinModal;
+export default DetailModal;
 
 let ModalBody = styled.div`
   position: fixed;
