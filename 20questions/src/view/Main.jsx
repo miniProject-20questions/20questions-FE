@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import axios from "axios"
 import Pagination from "../components/Pagination"
 import PostingModal from "../components/PostingModal";
-
-import { RESP } from "../Mock_API/respons";
+import {__getList} from '../redux/modules/MainList'
 
 function Main() {
-    // const ingLists = (axios.get("http://localhost:3001/api/quiz").data);
-    const ingLists = RESP.data;
+
+    const dispatch = useDispatch();
+    const ingLists = useSelector((state) => state.getlist.data)
+
+    useEffect(() => {
+        dispatch(__getList());
+    }, []);
 
     const [limit] = useState(6);
     const [page, setPage] = useState(1);
@@ -26,7 +30,7 @@ function Main() {
     );
 
     let [modal, setModal] = useState(false);
-
+        
     return (
         <MainBox>
             <Select>
