@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { __Posting } from "../redux/modules/PostingQuiz"
 
 
@@ -11,16 +13,18 @@ function PostinModal() {
   const [title, setTitle] = useState('');
   const [answer, setAnswer] = useState('');
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+
+  const onclinkHandler = () => {
     title === '' ? alert("문제를 입력해주세요!") : 
     answer === '' ? alert('정답을 입력해주세요!') :
     category === 0 ? alert("카테고리를 선택해주세요!") :
-    dispatch(__Posting({category, title, answer}))
+    dispatch(__Posting({category, title, answer}));
+    window.location.replace("/");
   }
-  
+ 
   return (
-    <ModalBody onSubmit={onSubmitHandler}>
+    <ModalBody>
       <div>
         <input type="text"
           value={title}
@@ -47,7 +51,8 @@ function PostinModal() {
           <option value={5}>가전제품</option>
           <option value={6}>기타</option>
         </select>
-        <Btns><button>퀴즈 등록 하기</button><span><button>취소</button></span></Btns>
+        <p>등록 후에는 내용을 수정할 수 없습니다.</p>
+        <Btns><button onClick={onclinkHandler}>퀴즈 등록 하기</button><span><button onClick={() => {window.location.replace("/")}}>취소</button></span></Btns>
       </div>
     </ModalBody>
   );
@@ -55,7 +60,7 @@ function PostinModal() {
 
 export default PostinModal;
 
-let ModalBody = styled.form`
+let ModalBody = styled.div`
   position: fixed;
   left: 0;
   right: 0;
@@ -87,6 +92,11 @@ let ModalBody = styled.form`
     margin: auto;
     height: 50px;
     text-align: center;
+  }
+  p {
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
   }
 `
 
