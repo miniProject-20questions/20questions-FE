@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 function LoginLayout() {
@@ -8,24 +9,74 @@ function LoginLayout() {
     onToggle(!toggle);
   };
 
-  const [show, setShow] = useState(false);
-  const ShowHelp = () => {
-    setShow(true);
-  };
+  const [user, setUser] = useState({
+    id: "",
+    pw: "",
+    confirm: "",
+    nickname: "",
+  });
 
+  const [validate, setValidate] = useState(true);
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+    // if (value.length > 15) {
+    //   setUser({
+    //     ...setUser,
+    //     id: user.id,
+    //   });
+    // }
+    const regExp = /[a-zA-Z0-9]{4,8}$/; // 각각 4-8까지 입력가능
+    let inputId = value;
+    const idtest = regExp.test(inputId);
+    if (!idtest) {
+      return setValidate(true);
+    } else {
+      return setValidate(false);
+    }
+  };
+  console.log(user);
+  console.log(user.id);
+  console.log(user.pw);
+
+  //axios
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:3001/user", user);
+  };
   return (
     <Layout>
       <Title>{toggle ? "로그인" : "회원가입"}</Title>
       <Container>
         <Box>
-          <InputInfo placeholder="아이디" onClick={ShowHelp} />
-          {show && (
-            <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
-          )}
-          <InputInfo placeholder=" 비밀번호" />
-          {show && (
-            <InfoP>비밀번호는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
-          )}
+          <InputInfo
+            placeholder="아이디"
+            onChange={onChange}
+            name="id"
+            value={user.id}
+          />
+          {toggle
+            ? ""
+            : validate && (
+                <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+              )}
+          {!toggle && <button>확인</button>}
+          <InputInfo
+            placeholder="비밀번호"
+            onChange={onChange}
+            name="pw"
+            value={user.pw}
+          />
+          {toggle
+            ? ""
+            : validate && (
+                <InfoP>
+                  비밀번호는 4-8자의 알파벳과 숫자만 입력 가능합니다.
+                </InfoP>
+              )}
         </Box>
 
         {toggle ? (
@@ -45,10 +96,21 @@ function LoginLayout() {
           </Box>
         ) : (
           <Box toggle={toggle}>
-            <InputInfo placeholder=" 비밀번호 재입력" />
+            <InputInfo
+              placeholder=" 비밀번호 재입력"
+              onChange={onChange}
+              name="confirm"
+              value={user.confirm}
+            />
             <InfoP>비밀번호를 다시 한 번 입력해주세요.</InfoP>
+            <InputInfo
+              placeholder=" 닉네임"
+              onChange={onChange}
+              name="nickname"
+              value={user.nickname}
+            />
             <ButtonArea>
-              <ButtonFull onClick={ShowJoin}>회원가입</ButtonFull>
+              <ButtonFull onClick={onSubmitHandler}>회원가입</ButtonFull>
               <Button onClick={ShowJoin}>취소</Button>
             </ButtonArea>
           </Box>
