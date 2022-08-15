@@ -16,14 +16,14 @@ function Header() {
           }}
         >
           로그인
-        </HeaderBtns>
-        <HeaderBtns
+        </HeaderBtn>
+        <HeaderBtn
           onClick={() => {
             navigate("/join");
           }}
         >
           회원가입
-        </HeaderBtns>
+        </HeaderBtn>
       </div>
     </HeaderBox>
   );

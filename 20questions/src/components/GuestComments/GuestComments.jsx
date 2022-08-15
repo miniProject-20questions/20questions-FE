@@ -8,21 +8,22 @@ import styled from "styled-components";
 const GuestComments = () => {
 
     const comments = useSelector((state) => state.getlist.data)
-  
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(__getContent());
+        dispatch(__getContent(quizId));
     }, []);
 
 
     const [view, setView] = useState(true);
     const params = useParams();
-    const quizid = params.quizid
+    const quizId = params.quizId
+
     const [content, setContent] = useState('');
-    const dispatch = useDispatch();
+    
 
     const onclickHandler = () => {
         content === '' ? alert("질문이나 정답을 입력해주세요!") :
-            dispatch(__CommentPost({ content, quizid }))
+            dispatch(__CommentPost({ content }))
         // answer === content ? alert("정답입니다!") :
         alert('질문이 등록되었습니다!')
     }

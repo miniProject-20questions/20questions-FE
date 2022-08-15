@@ -9,8 +9,7 @@ const initialState = {
 
 export const __Posting = createAsyncThunk("posting/Posting", async (payload, api) => {
   try {
-    const data = await axios.post("http://localhost:3001/quiz", payload);
-    console.log(payload)
+    const data = await axios.post("http://juddyy.shop/api/quiz", payload);
    return api.fulfillWithValue(data.data);
   } catch(e) {
   return api.rejectWithValue(e);
@@ -27,7 +26,7 @@ const postingSlice = createSlice({
       state.isLoading = true; //
     },
     [__Posting.fulfilled]: (state, action)=> {
-      state.quiz = action.payload; 
+      state.data = action.payload; 
     },
     [__Posting.rejected] : (state, action) => {
       console.log(action); //생략가능부분

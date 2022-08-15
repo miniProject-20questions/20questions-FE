@@ -12,9 +12,10 @@ export const __getContent = createAsyncThunk("getlist/getList", async (payload, 
 
   try {
     const data = await axios.get(
-      "http://localhost:3001/data"
+      `http://juddyy.shop/api/question/:${payload.quizId}}`
     );
-   return api.fulfillWithValue(data.data);
+    console.log(payload.quizId)
+   return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);
   }

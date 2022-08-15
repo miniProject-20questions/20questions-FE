@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {__getContent} from "../../redux/modules/ContentList"
+import { useParams } from "react-router-dom";
+import {__getContent} from "../../redux/modules/ContentList";
 
 const HostComments = () => {
     const comments = useSelector((state) => state.getlist.data)
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(__getContent());
+        dispatch(__getContent(quizId));
     }, []);
+
+    const params = useParams();
+    const quizId = params.quizId
 
     return (
         <>
