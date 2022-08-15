@@ -8,7 +8,7 @@ const initialState = {
 }
 
 
-export const __getContent = createAsyncThunk("getlist/getList", async (payload, api) => {
+export const __getContent = createAsyncThunk("contentgetlist/contentgetList", async (payload, api) => {
 
   try {
     const data = await axios.get(
@@ -22,7 +22,7 @@ export const __getContent = createAsyncThunk("getlist/getList", async (payload, 
 
 
 const getContentSlice = createSlice({
-  name: "getlist",
+  name: "contentgetlist",
   initialState,
   reducers: {},
   extraReducers: {
