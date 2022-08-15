@@ -1,39 +1,60 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 function LoginLayout() {
-  const [toggle, onToggle] = useState(true);
-  const ShowJoin = () => {
-    onToggle(!toggle);
-  };
+  const [user, setUser] = useState({
+    id: "",
+    pw: "",
+  });
 
-  const [show, setShow] = useState(false);
-  const ShowHelp = () => {
-    setShow(true);
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
   };
+  //axios
+  // const Login = (e) => {
+  //   axios.post("http://localhost:3001/user", user).then((response) => {
+  //     if (response.data.accessToken) {
+  //       console.log(response.data.Token);
+  //       setCookie(//백엔드에서 정해준 쿠키이름?, JSON.stringify(response.data));
+  //       // 객체를 json으로 바꿔준다.
+  //     }
+  //   });
+  // };
+  // //
 
+  // const Logout = (e) => {
+  //   localStorage.removeItem("user");
+  // };
   return (
     <Layout>
-      <Title>{toggle ? "로그인" : "회원가입"}</Title>
+      <Title>로그인</Title>
       <Container>
         <Box>
-          <InputInfo placeholder="아이디" onClick={ShowHelp} />
-          {show && (
-            <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
-          )}
-          <InputInfo placeholder=" 비밀번호" />
-          {show && (
-            <InfoP>비밀번호는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
-          )}
+          <InputInfo
+            placeholder="아이디"
+            onChange={onChange}
+            name="id"
+            value={user.id}
+          />
+          <InputInfo
+            placeholder="비밀번호"
+            onChange={onChange}
+            name="pw"
+            value={user.pw}
+          />
         </Box>
 
-        {toggle ? (
-          <Box>
-            <ButtonArea>
-              <ButtonFull Max>로그인</ButtonFull>
-            </ButtonArea>
-            <Hr />
+        <Box>
+          <ButtonArea>
+            <Button>로그인</Button>
+          </ButtonArea>
+          {/* <Hr />
             <InfoP style={{ margin: "0 auto", textAlign: "center" }}>
               아직 회원이 아니라면
             </InfoP>
@@ -41,18 +62,8 @@ function LoginLayout() {
               <Button Max onClick={ShowJoin}>
                 회원가입하기
               </Button>
-            </ButtonArea>
-          </Box>
-        ) : (
-          <Box toggle={toggle}>
-            <InputInfo placeholder=" 비밀번호 재입력" />
-            <InfoP>비밀번호를 다시 한 번 입력해주세요.</InfoP>
-            <ButtonArea>
-              <ButtonFull onClick={ShowJoin}>회원가입</ButtonFull>
-              <Button onClick={ShowJoin}>취소</Button>
-            </ButtonArea>
-          </Box>
-        )}
+            </ButtonArea> */}
+        </Box>
       </Container>
     </Layout>
   );
@@ -123,34 +134,12 @@ const ButtonArea = styled.div`
   gap: 0 20px;
 `;
 
-const ButtonFull = styled.button`
-  width: ${(props) => (props.Max ? "300px" : "140px")};
+const Button = styled.button`
+  width: 300px;
   height: 35px;
   background-color: #e8344e;
   /* border: 1px solid #e8344e; */
   border: none;
   border-radius: 3px;
   color: white;
-`;
-
-const Button = styled.button`
-  width: ${(props) => (props.Max ? "300px" : "140px")};
-  height: 35px;
-  background-color: #fff;
-  border: 1px solid #e8344e;
-  border-radius: 3px;
-  color: #e8344e;
-`;
-
-const InfoP = styled.p`
-  margin: 0;
-  font-size: 12px;
-  width: 300px;
-`;
-
-const Hr = styled.hr`
-  width: 300px;
-  margin: 0 auto;
-  border: 0.5px solid #eee;
-  background-color: #eee;
 `;
