@@ -7,10 +7,8 @@ import PostingModal from "../components/PostingModal/PostingModal";
 import { __getList } from '../redux/modules/MainList'
 
 function Main() {
-    // const Imgurl = "http://image.yes24.com/blogimage/blog/s/o/soojinja/20151022143825875437.jpg"
-    const [Imgurl, setImgurl] = useState("");
     const navigate = useNavigate();
-    
+
     const dispatch = useDispatch();
     const ingLists = useSelector((state) => state.getlist.data)
 
@@ -18,20 +16,21 @@ function Main() {
         dispatch(__getList());
     }, []);
 
-    const [limit] = useState(6);
-    const [page, setPage] = useState(1);
-
+    // const [limit] = useState(6);
+    // const [page, setPage] = useState(1);
+    // const [total, setTotal] = useState(0);
+    // const num = 0;
     const [category, setCategory] = useState(0);
     const handleChange = (e) => {
         setCategory(e.target.value)
     }
 
-    const indexOfLastPost = page * limit;
-    const indexOfFirstPost = indexOfLastPost - limit;
-    const currentCountings = ingLists.slice(
-        indexOfFirstPost,
-        indexOfLastPost
-    );
+    // const indexOfLastPost = page * limit;
+    // const indexOfFirstPost = indexOfLastPost - limit;
+    // const currentCountings = ingLists.slice(
+    //     indexOfFirstPost,
+    //     indexOfLastPost
+    // );
 
     let [postingmodal, setPostingModal] = useState(false);
 
@@ -50,41 +49,60 @@ function Main() {
                 </select>
             </Select>
             <IngList>
-                {currentCountings.map((count) => (
+                {ingLists.map((count) => (
                     count.category === +category ?
                         <div key={count.quizId} onClick={() => {
                             navigate(`/detail/${count.quizId}`);
                         }}>
-                            {count.category === 2 ? setImgurl('') : ''}
-                            <Img style={{ width: "95%", height: "100px", "backgroundImage": `url(${Imgurl})` }}></Img>
-                            <p style={{"fontWeight": "bold"}}>제목 {count.title}</p>
-                            <p>작성자 {count.nickname}님</p>
-                            <p>작성자 답변 개수{count.count} / 20</p>
-                            <p>작성 일자 {count.date}</p>
+                            <Img style={{
+                                width: "95%", height: "100px",
+                                "backgroundImage": `url(${count.category === 1 ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660" :
+                                    count.category === 2 ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15" :
+                                        count.category === 3 ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0" :
+                                            count.category === 4 ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0" :
+                                                count.category === 5 ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0" :
+                                                    count.category === 6 ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0" :
+                                                        count.category === 7 ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0" : ''})`
+                            }}></Img>
+                            <p style={{ "fontWeight": "bold" }}>제목 {count.title}</p>
+                            <p>작성자 {count.nickname}</p>
+                            <p>댓글<span style={{"marginLeft": "10px"}}>{count.count}</span>/20</p>
+                            <p>작성일자 {count.date}</p>
                         </div> :
                         category === 0 ? <div key={count.quizId} onClick={() => {
                             navigate(`/detail/${count.quizId}`);
                         }}>
-                            {count.category === 2 ? setImgurl('') : ''}
-                            <Img style={{ width: "95%", height: "100px", "backgroundImage": `url(${Imgurl})` }}></Img>
-                            <p style={{"fontWeight": "bold"}}>제목 {count.title}</p>
-                            <p>작성자 {count.nickname}님</p>
-                            <p>작성자 답변 개수{count.count} / 20</p>
-                            <p>작성 일자 {count.date}</p>
+                            <Img style={{
+                                width: "95%", height: "100px",
+                                "backgroundImage": `url(${count.category === 1 ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660" :
+                                    count.category === 2 ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15" :
+                                        count.category === 3 ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0" :
+                                            count.category === 4 ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0" :
+                                                count.category === 5 ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0" :
+                                                    count.category === 6 ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0" :
+                                                        count.category === 7 ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0" : ''})`
+                            }}></Img>
+                            <p style={{ "fontWeight": "bold" }}>제목 {count.title}</p>
+                            <p>작성자 {count.nickname}</p>
+                            <p>댓글<span style={{"marginLeft": "10px"}}>{count.count}</span>/20</p>
+                            <p>작성일자 {count.date}</p>
                         </div> : ''
                 ))}
             </IngList>
             <PostBtn onClick={() => {
                 setPostingModal(true);
             }}>글쓰기</PostBtn>
-            <footer>
+            {/* <footer>
+                {ingLists.map((count) => (
+                    count.category === +category ? console.log(count.category) : ''
+                ))}
                 <Pagination
                     total={ingLists.length}
                     limit={limit}
                     page={page}
                     setPage={setPage}
                 />
-            </footer>
+            </footer> */}
             {postingmodal === true ? <PostingModal /> : ''}
         </MainBox>
     );
@@ -124,8 +142,9 @@ let IngList = styled.div`
     justify-content: center;
     box-shadow: 6px 6px 6px 6px #0000ff19;
     padding: 5px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    overflow-y: scroll;
     div { 
         width: 30%;
         height: 215px;
@@ -162,6 +181,6 @@ const Img = styled.p`
     width: 95%;
     height: 100px;
     background-size: cover;
-    background-position: center;
     background-color: transparent;
+    border-radius: 10px;
 `

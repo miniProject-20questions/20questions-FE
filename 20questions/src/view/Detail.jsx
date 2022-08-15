@@ -9,7 +9,7 @@ function Detail() {
             <DetailBody>
                 <CetegotyBody>문제 카테고리/</CetegotyBody>
                 <Quiz>문제</Quiz>
-                <Alse><div>3시간 전</div><div>댓글수/7<span style={{"margin-left": "15px", "font-weight": "bold"}}>작성자/종원님</span></div></Alse>
+                <Alse><div>3시간 전</div><div>댓글수/7<span style={{"marginleft": "15px", "fontweight": "bold"}}>작성자/종원님</span></div></Alse>
             </DetailBody>
             {/* {NowId === HostId ? <HostComments/> : <GuestComments />} */}
         </>
