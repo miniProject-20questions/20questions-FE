@@ -14,7 +14,6 @@ export const __getContent = createAsyncThunk("getlist/getList", async (payload, 
     const data = await axios.get(
       `http://juddyy.shop/api/question/:${payload.quizId}}`
     );
-    console.log(payload.quizId)
    return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);

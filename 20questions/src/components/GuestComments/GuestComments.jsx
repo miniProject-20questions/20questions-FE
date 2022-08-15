@@ -23,7 +23,7 @@ const GuestComments = () => {
 
     const onclickHandler = () => {
         content === '' ? alert("질문이나 정답을 입력해주세요!") :
-            dispatch(__CommentPost({ content }))
+            dispatch(__CommentPost({ content, quizId }))
         // answer === content ? alert("정답입니다!") :
         alert('질문이 등록되었습니다!')
     }
