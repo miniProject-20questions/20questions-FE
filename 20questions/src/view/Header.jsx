@@ -12,11 +12,18 @@ function Header() {
       <div>
         <HeaderBtn
           onClick={() => {
-            navigate("/user");
+            navigate("/login");
           }}
         >
           로그인
-        </HeaderBtn>
+        </HeaderBtns>
+        <HeaderBtns
+          onClick={() => {
+            navigate("/join");
+          }}
+        >
+          회원가입
+        </HeaderBtns>
       </div>
     </HeaderBox>
   );
