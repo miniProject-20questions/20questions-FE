@@ -10,12 +10,18 @@ function Header() {
       <div>
         <HeaderBtns
           onClick={() => {
-            navigate("/user");
+            navigate("/login");
           }}
         >
           로그인
         </HeaderBtns>
-        <HeaderBtns>회원가입</HeaderBtns>
+        <HeaderBtns
+          onClick={() => {
+            navigate("/join");
+          }}
+        >
+          회원가입
+        </HeaderBtns>
       </div>
     </HeaderBox>
   );

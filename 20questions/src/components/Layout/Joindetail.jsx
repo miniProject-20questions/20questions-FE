@@ -3,12 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-function LoginLayout() {
-  const [toggle, onToggle] = useState(true);
-  const ShowJoin = () => {
-    onToggle(!toggle);
-  };
-
+function JoinLayout() {
   const [user, setUser] = useState({
     id: "",
     pw: "",
@@ -16,7 +11,7 @@ function LoginLayout() {
     nickname: "",
   });
 
-  const [validate, setValidate] = useState(true);
+  // const [validate, setValidate] = useState(true);
   const onChange = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -29,27 +24,23 @@ function LoginLayout() {
     //     id: user.id,
     //   });
     // }
-    const regExp = /[a-zA-Z0-9]{4,8}$/; // 각각 4-8까지 입력가능
-    let inputId = value;
-    const idtest = regExp.test(inputId);
-    if (!idtest) {
-      return setValidate(true);
-    } else {
-      return setValidate(false);
-    }
+    // const regExp = /[a-zA-Z0-9]{4,8}$/; // 각각 4-8까지 입력가능
+    // let inputId = value;
+    // const idtest = regExp.test(inputId);
+    // if (!idtest) {
+    //   return setValidate(true);
+    // } else {
+    //   return setValidate(false);
+    // }
   };
-  console.log(user);
-  console.log(user.id);
-  console.log(user.pw);
-
   //axios
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
+  const Join = (e) => {
     axios.post("http://localhost:3001/user", user);
   };
+
   return (
     <Layout>
-      <Title>{toggle ? "로그인" : "회원가입"}</Title>
+      <Title>회원가입</Title>
       <Container>
         <Box>
           <InputInfo
@@ -58,69 +49,39 @@ function LoginLayout() {
             name="id"
             value={user.id}
           />
-          {toggle
-            ? ""
-            : validate && (
-                <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
-              )}
-          {!toggle && <button>확인</button>}
+          <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          <button>확인</button>
           <InputInfo
             placeholder="비밀번호"
             onChange={onChange}
             name="pw"
             value={user.pw}
           />
-          {toggle
-            ? ""
-            : validate && (
-                <InfoP>
-                  비밀번호는 4-8자의 알파벳과 숫자만 입력 가능합니다.
-                </InfoP>
-              )}
+          <InfoP>비밀번호는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          <InputInfo
+            placeholder=" 비밀번호 재입력"
+            onChange={onChange}
+            name="confirm"
+            value={user.confirm}
+          />
+          <InfoP>비밀번호를 다시 한 번 입력해주세요.</InfoP>
+          <InputInfo
+            placeholder=" 닉네임"
+            onChange={onChange}
+            name="nickname"
+            value={user.nickname}
+          />
+          <ButtonArea>
+            <ButtonFull onClick={Join}>회원가입</ButtonFull>
+            <Button>취소</Button>
+          </ButtonArea>
         </Box>
-
-        {toggle ? (
-          <Box>
-            <ButtonArea>
-              <ButtonFull Max>로그인</ButtonFull>
-            </ButtonArea>
-            <Hr />
-            <InfoP style={{ margin: "0 auto", textAlign: "center" }}>
-              아직 회원이 아니라면
-            </InfoP>
-            <ButtonArea>
-              <Button Max onClick={ShowJoin}>
-                회원가입하기
-              </Button>
-            </ButtonArea>
-          </Box>
-        ) : (
-          <Box toggle={toggle}>
-            <InputInfo
-              placeholder=" 비밀번호 재입력"
-              onChange={onChange}
-              name="confirm"
-              value={user.confirm}
-            />
-            <InfoP>비밀번호를 다시 한 번 입력해주세요.</InfoP>
-            <InputInfo
-              placeholder=" 닉네임"
-              onChange={onChange}
-              name="nickname"
-              value={user.nickname}
-            />
-            <ButtonArea>
-              <ButtonFull onClick={onSubmitHandler}>회원가입</ButtonFull>
-              <Button onClick={ShowJoin}>취소</Button>
-            </ButtonArea>
-          </Box>
-        )}
       </Container>
     </Layout>
   );
 }
 
-export default LoginLayout;
+export default JoinLayout;
 
 const Layout = styled.div`
   display: flex;
@@ -208,11 +169,4 @@ const InfoP = styled.p`
   margin: 0;
   font-size: 12px;
   width: 300px;
-`;
-
-const Hr = styled.hr`
-  width: 300px;
-  margin: 0 auto;
-  border: 0.5px solid #eee;
-  background-color: #eee;
 `;
