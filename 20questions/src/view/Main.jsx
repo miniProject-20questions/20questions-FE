@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Pagination from "../components/Pagination"
-import PostingModal from "../components/PostingModal";
-import DetailModal from "../components/DetailModal"
+import Pagination from "../components/Pagination/Pagination"
+import PostingModal from "../components/PostingModal/PostingModal";
 import { __getList } from '../redux/modules/MainList'
 
 function Main() {
-
+    const navigate = useNavigate();
+    
     const dispatch = useDispatch();
     const ingLists = useSelector((state) => state.getlist.data)
 
@@ -18,7 +19,7 @@ function Main() {
     const [limit] = useState(6);
     const [page, setPage] = useState(1);
 
-    const [categoty, setCategoty] = useState(2);
+    const [categoty, setCategoty] = useState(1);
     const handleChange = (e) => {
         setCategoty(e.target.value)
     }
@@ -31,7 +32,6 @@ function Main() {
     );
 
     let [postingmodal, setPostingModal] = useState(false);
-    let [detailmodal, setDetailModal] = useState(false);
 
     return (
         <MainBox>
@@ -51,10 +51,10 @@ function Main() {
                 {currentCountings.map((count) => (
                     count.category === +categoty ?
                         <div key={count.quizId} onClick={() => {
-                            setDetailModal(true);
+                            navigate(`/detail/${count.quizId}`);
                         }}>
                             <Img></Img>
-                            <p>제목 {count.title}</p>
+                            <p style={{"fontWeight": "bold"}}>제목 {count.title}</p>
                             <p>작성자 {count.nickname}님</p>
                             <p>작성자 답변 개수{count.count} / 20</p>
                             <p>작성 일자 {count.date}</p>
@@ -74,7 +74,6 @@ function Main() {
                 />
             </footer>
             {postingmodal === true ? <PostingModal /> : ''}
-            {detailmodal === true ? <DetailModal /> : ''}
         </MainBox>
     );
 }
@@ -128,7 +127,6 @@ let IngList = styled.div`
         white-space: nowrap;
         p {
             margin: 5px auto auto 5px;
-            font-weight: bold;
         }
     }
     `

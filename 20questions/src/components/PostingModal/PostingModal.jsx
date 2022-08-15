@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-import { __Posting } from "../redux/modules/PostingQuiz"
+import { __Posting } from "../../redux/modules/PostingQuiz"
 
 
 function PostinModal() {
@@ -17,8 +17,8 @@ function PostinModal() {
     answer === '' ? alert('정답을 입력해주세요!') :
     category === 0 ? alert("카테고리를 선택해주세요!") :
     dispatch(__Posting({category, title, answer}));
-    alert("퀴즈가 등록되었습니다.")
     window.location.replace("/");
+    alert("퀴즈가 등록되었습니다.");
   }
  
   return (

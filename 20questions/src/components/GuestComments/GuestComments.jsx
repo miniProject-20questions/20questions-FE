@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { RESP } from "../Mock_API/respons";
+import { RESP } from "../../Mock_API/respons";
 
-//닉네임으로 1차 분할 //댓글수로 2차 분할 //solved로 3차 분할
 const GuestComments = () => {
     const { data } = RESP;
     const comments = data
