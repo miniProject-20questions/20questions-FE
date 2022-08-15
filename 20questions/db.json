@@ -1,0 +1,22 @@
+{
+  "user": [
+    {
+      "id": "yeun38",
+      "nickname": "영은",
+      "password": "yeun1234",
+      "confirm": "yeun1234"
+    },
+    {
+      "id": "ㄴㅇㅁㄹ",
+      "pw": "ㅁㄴㅇㄹ",
+      "confirm": "ㅁㄴㅇㄹ",
+      "nickname": "ㅁㄴㅇㄹ"
+    },
+    {
+      "id": "ㄴㅇㄹ",
+      "pw": "ㄴㄹㄴㅇ",
+      "confirm": "ㄴㅇㄹ",
+      "nickname": "ㄴㅇㄹ"
+    }
+  ]
+}
