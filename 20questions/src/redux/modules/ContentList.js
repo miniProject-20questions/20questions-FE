@@ -8,11 +8,11 @@ const initialState = {
 }
 
 
-export const __getList = createAsyncThunk("getlist/getList", async (payload, api) => {
+export const __getContent = createAsyncThunk("getlist/getList", async (payload, api) => {
 
   try {
     const data = await axios.get(
-      "http://localhost:3001/quiz"
+      "http://localhost:3001/data"
     );
    return api.fulfillWithValue(data.data);
   } catch(e) {
@@ -21,22 +21,22 @@ export const __getList = createAsyncThunk("getlist/getList", async (payload, api
 });
 
 
-const getListSlice = createSlice({
+const getContentSlice = createSlice({
   name: "getlist",
   initialState,
   reducers: {},
   extraReducers: {
-    [__getList.pending]: (state) => {
+    [__getContent.pending]: (state) => {
       state.isLoading = true; //
     },
-    [__getList.fulfilled]: (state, action)=> {
+    [__getContent.fulfilled]: (state, action)=> {
       state.data = action.payload; 
     },
-    [__getList.rejected] : (state, action) => {
+    [__getContent.rejected] : (state, action) => {
       console.log(action); //생략가능부분
     }
   },
 });
 
-export const { } = getListSlice.actions;
-export default getListSlice.reducer;
+export const { } = getContentSlice.actions;
+export default getContentSlice.reducer;

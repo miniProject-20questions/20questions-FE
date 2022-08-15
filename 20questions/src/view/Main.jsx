@@ -11,7 +11,7 @@ function Main() {
 
     const dispatch = useDispatch();
     const ingLists = useSelector((state) => state.getlist.data)
-
+  
     useEffect(() => {
         dispatch(__getList());
     }, []);

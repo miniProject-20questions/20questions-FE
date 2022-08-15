@@ -11,15 +11,18 @@ function PostinModal() {
   const [category, setCategory] = useState(0);
   const [title, setTitle] = useState('');
   const [answer, setAnswer] = useState('');
-
-  const onclinkHandler = () => {
-    title === '' ? alert("문제를 입력해주세요!") : 
-    answer === '' ? alert('정답을 입력해주세요!') :
-    category === 0 ? alert("카테고리를 선택해주세요!") :
+  
+  const onclickHandler = () => {
+    if (title === '') {
+      alert("문제를 입력해주세요!")
+    } else if (answer === '') {
+      alert("정답을 입력해주세요!")
+    } else if (category === 0) {
+      alert('카테고리를 입력해주세요!')
+    } else {
+    window.location.replace('/')
     dispatch(__Posting({category, title, answer}));
-    window.location.replace("/");
-    alert("퀴즈가 등록되었습니다.");
-  }
+  }}
  
   return (
     <ModalBody>
@@ -39,7 +42,7 @@ function PostinModal() {
         <select type="text"
           value={category}
           onChange={(e) => {
-            setCategory(e.target.value);
+            setCategory(+e.target.value);
           }}>
           <option>--- 카테고리를 선택해주세요 ---</option>
           <option value={1}>인물</option>
@@ -50,7 +53,7 @@ function PostinModal() {
           <option value={6}>기타</option>
         </select>
         <p>등록 후에는 내용을 수정할 수 없습니다.</p>
-        <Btns><button onClick={onclinkHandler}>퀴즈 등록 하기</button><span><button onClick={() => {window.location.replace("/")}}>취소</button></span></Btns>
+        <Btns><button onClick={onclickHandler}>퀴즈 등록 하기</button><span><button onClick={() => {window.location.replace("/")}}>취소</button></span></Btns>
       </div>
     </ModalBody>
   );

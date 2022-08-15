@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
 const initialState = {
-  todos: [],
+  quiz: [],
   isLoading: false, //
   error: null, //
 }
@@ -9,7 +9,8 @@ const initialState = {
 
 export const __Posting = createAsyncThunk("posting/Posting", async (payload, api) => {
   try {
-    const data = await axios.post("http://localhost:3001/posting", payload);
+    const data = await axios.post("http://localhost:3001/quiz", payload);
+    console.log(payload)
    return api.fulfillWithValue(data.data);
   } catch(e) {
   return api.rejectWithValue(e);
@@ -26,7 +27,7 @@ const postingSlice = createSlice({
       state.isLoading = true; //
     },
     [__Posting.fulfilled]: (state, action)=> {
-      state.posting = action.payload; 
+      state.quiz = action.payload; 
     },
     [__Posting.rejected] : (state, action) => {
       console.log(action); //생략가능부분

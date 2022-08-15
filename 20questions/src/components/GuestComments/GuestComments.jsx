@@ -1,15 +1,38 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { __CommentPost } from "../../redux/modules/PostingContent"
 import { RESP } from "../../Mock_API/respons";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import {__getContent} from "../../redux/modules/ContentList"
 
 const GuestComments = () => {
+
     const { data } = RESP;
     const comments = data
+    console.log(data)
+
+    useEffect(() => {
+        dispatch(__getContent());
+    }, []);
+
+
     const [view, setView] = useState(true);
+    const params = useParams();
+    const quizid = params.quizid
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+
+    const onclickHandler = () => {
+        content === '' ? alert("질문이나 정답을 입력해주세요!") :
+            dispatch(__CommentPost({ content, quizid }))
+        // answer === content ? alert("정답입니다!") :
+        alert('질문이 등록되었습니다!')
+    }
 
     useEffect(() => {
         comments.map((comment) => {
-            if (comment.solved === null) {
+            if (comment.solved || comment.category === null) {
                 setView(false)
             }
         })
@@ -17,11 +40,11 @@ const GuestComments = () => {
 
     return (
         <>
-            <div className="게스트구역">
+            <div>
                 <GuestBody>
-                <div>
-                    {view === true && comments.length <= 19 ? <div><input></input><button>질문하기</button></div> : ''}
-                </div>
+                    <div>
+                        {view === true && comments.length <= 19 ? <div><input onChange={(e) => setContent(e.target.value)}></input><button onClick={onclickHandler}>질문하기</button></div> : ''}
+                    </div>
                     {comments.map((comment) => (
                         <GuestList key={comment.count}>
                             {comment.solved === null ? <div>

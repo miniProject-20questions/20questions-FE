@@ -6,7 +6,9 @@ function Header() {
   const navigate = useNavigate();
   return (
     <HeaderBox>
-      <p>20 Question.</p>
+      <p onClick={() => {
+            navigate("/");
+          }}>20 Question.</p>
       <div>
         <HeaderBtn
           onClick={() => {
