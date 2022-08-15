@@ -1,34 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-import Pagination from "../components/Pagination";
-import PostingModal from "../components/PostingModal";
-
-import { RESP } from "../Mock_API/respons";
+import Pagination from "../components/Pagination/Pagination"
+import PostingModal from "../components/PostingModal/PostingModal";
+import { __getList } from '../redux/modules/MainList'
 
 function Main() {
-  const ingLists = RESP.data;
-  const [limit] = useState(6);
-  const [page, setPage] = useState(1);
+    const navigate = useNavigate();
 
-    const [category, setCategory] = useState(2);
+    const dispatch = useDispatch();
+    const ingLists = useSelector((state) => state.getlist.data)
+  
+    useEffect(() => {
+        dispatch(__getList());
+    }, []);
+
+    // const [limit] = useState(6);
+    // const [page, setPage] = useState(1);
+    // const [total, setTotal] = useState(0);
+    // const num = 0;
+    const [category, setCategory] = useState(0);
     const handleChange = (e) => {
         setCategory(e.target.value)
-      }
+    }
 
+    // const indexOfLastPost = page * limit;
+    // const indexOfFirstPost = indexOfLastPost - limit;
+    // const currentCountings = ingLists.slice(
+    //     indexOfFirstPost,
+    //     indexOfLastPost
+    // );
 
-  const indexOfLastPost = page * limit;
-  const indexOfFirstPost = indexOfLastPost - limit;
-  const currentCountings = ingLists.slice(indexOfFirstPost, indexOfLastPost);
-
-  let [modal, setModal] = useState(false);
+    let [postingmodal, setPostingModal] = useState(false);
 
     return (
         <MainBox>
             <Select>
                 <select onChange={(e) => handleChange(e)}>
-                    <option value={2}>--- 카테고리 선택 ---</option>
+                    <option value={0}>--- 카테고리 선택 ---</option>
                     <option value={1}>인물</option>
                     <option value={2}>동물</option>
                     <option value={3}>영화</option>
@@ -39,89 +49,114 @@ function Main() {
                 </select>
             </Select>
             <IngList>
-                {currentCountings.map((count) => (
+                {ingLists.map((count) => (
                     count.category === +category ?
-                        <div key={count.quizId}>
-                            <Img></Img>
-                            <p>제목 {count.title}</p>
-                            <p>작성자 {count.nickname}님</p>
-                            <p>작성자 답변 개수{count.count}</p>
-                            <p>작성 일자 {count.date}</p>
+                        <div key={count.quizId} onClick={() => {
+                            navigate(`/detail/${count.quizId}`);
+                        }}>
+                            <Img style={{
+                                width: "95%", height: "100px",
+                                "backgroundImage": `url(${count.category === 1 ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660" :
+                                    count.category === 2 ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15" :
+                                        count.category === 3 ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0" :
+                                            count.category === 4 ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0" :
+                                                count.category === 5 ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0" :
+                                                    count.category === 6 ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0" :
+                                                        count.category === 7 ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0" : ''})`
+                            }}></Img>
+                            <p style={{ "fontWeight": "bold" }}>제목 {count.title}</p>
+                            <p>작성자 {count.nickname}</p>
+                            <p>댓글<span style={{"marginLeft": "10px"}}>{count.count}</span>/20</p>
+                            <p>작성일자 {count.date}</p>
                         </div> :
-                        ''
+                        category === 0 ? <div key={count.quizId} onClick={() => {
+                            navigate(`/detail/${count.quizId}`);
+                        }}>
+                            <Img style={{
+                                width: "95%", height: "100px",
+                                "backgroundImage": `url(${count.category === 1 ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660" :
+                                    count.category === 2 ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15" :
+                                        count.category === 3 ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0" :
+                                            count.category === 4 ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0" :
+                                                count.category === 5 ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0" :
+                                                    count.category === 6 ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0" :
+                                                        count.category === 7 ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0" : ''})`
+                            }}></Img>
+                            <p style={{ "fontWeight": "bold" }}>제목 {count.title}</p>
+                            <p>작성자 {count.nickname}</p>
+                            <p>댓글<span style={{"marginLeft": "10px"}}>{count.count}</span>/20</p>
+                            <p>작성일자 {count.date}</p>
+                        </div> : ''
                 ))}
             </IngList>
             <PostBtn onClick={() => {
-                setModal(true);
+                setPostingModal(true);
             }}>글쓰기</PostBtn>
-            <footer>
+            {/* <footer>
+                {ingLists.map((count) => (
+                    count.category === +category ? console.log(count.category) : ''
+                ))}
                 <Pagination
                     total={ingLists.length}
                     limit={limit}
                     page={page}
                     setPage={setPage}
                 />
-            </footer>
-            {modal === true ? <PostingModal /> : ''}
+            </footer> */}
+            {postingmodal === true ? <PostingModal /> : ''}
         </MainBox>
     );
-
 }
 
 export default Main;
 
 let MainBox = styled.div`
-  height: 530px;
-  width: 90%;
-  margin: 10px auto;
-`;
+    height: 530px;
+    width: 90%;
+    margin: 10px auto;
+`
 
 let Select = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
-    margin-right: 10px;
-  }
-  select {
-    padding: 2px;
-    text-align: center;
-    width: 30%;
-    border-radius: 5px;
-  }
-`;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    div {
+        margin-right: 10px;
+    }
+    select {
+        padding: 2px;
+        text-align: center;
+        width: 30%;
+        border-radius: 5px;
+    }
+`
 
 let IngList = styled.div`
-  height: 455px;
-  background-color: #c4c41127;
-  margin: 8px auto 8px auto;
-  border-radius: 10px;
-  border: solid 3px gray;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  box-shadow: 6px 6px 6px 6px #0000ff19;
-  padding: 5px;
-  div {
-    width: 30%;
-    height: 215px;
-    margin: 3px;
-    background-color: #00000031;
+    height:455px;
+    background-color: #c4c41127;
+    margin: 8px auto 8px auto;
     border-radius: 10px;
     border: solid 3px gray;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     box-shadow: 6px 6px 6px 6px #0000ff19;
     padding: 5px;
+    flex-direction: row;
+    align-items: center;
+    overflow-y: scroll;
     div { 
         width: 30%;
         height: 215px;
-        margin: auto;
+        margin: 3px;
         background-color: #00000031;
         border-radius: 10px;
         border: solid 3px gray;
         box-shadow: 6px 6px 6px 6px #0000ff19;
-    }
-    p {
-        margin: 5px auto 5px auto;
+        white-space: nowrap;
+        p {
+            margin: 5px auto auto 5px;
+        }
     }
     `
 
@@ -142,10 +177,10 @@ let PostBtn = styled.button`
 `
 
 const Img = styled.p`
+    margin: auto;
     width: 95%;
     height: 100px;
     background-size: cover;
-    background-position: center;
     background-color: transparent;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.266), rgba(220, 207, 207, 0.541)), url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
+    border-radius: 10px;
 `

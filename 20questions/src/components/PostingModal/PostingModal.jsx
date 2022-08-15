@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+
+import { __Posting } from "../../redux/modules/PostingQuiz"
+
 
 function PostinModal() {
+  const dispatch = useDispatch();
+
   const [category, setCategory] = useState(0);
   const [title, setTitle] = useState('');
   const [answer, setAnswer] = useState('');
-
-  const onSubmitHandler = (e) => {
-    console.log(title, answer, category)
-  }
+  
+  const onclickHandler = () => {
+    if (title === '') {
+      alert("문제를 입력해주세요!")
+    } else if (answer === '') {
+      alert("정답을 입력해주세요!")
+    } else if (category === 0) {
+      alert('카테고리를 입력해주세요!')
+    } else {
+    window.location.replace('/')
+    dispatch(__Posting({category, title, answer}));
+  }}
+ 
   return (
-    <ModalBody onSubmit={onSubmitHandler}>
+    <ModalBody>
       <div>
         <input type="text"
           value={title}
@@ -23,11 +38,11 @@ function PostinModal() {
           onChange={(e) => {
             setAnswer(e.target.value);
           }}
-          placeholder="이곳에 답변을 입력해주세요."></input>
+          placeholder="이곳에 정답을 입력해주세요."></input>
         <select type="text"
           value={category}
           onChange={(e) => {
-            setCategory(e.target.value);
+            setCategory(+e.target.value);
           }}>
           <option>--- 카테고리를 선택해주세요 ---</option>
           <option value={1}>인물</option>
@@ -37,7 +52,8 @@ function PostinModal() {
           <option value={5}>가전제품</option>
           <option value={6}>기타</option>
         </select>
-        <Btns><button>퀴즈 등록 하기</button><span><button>취소</button></span></Btns>
+        <p>등록 후에는 내용을 수정할 수 없습니다.</p>
+        <Btns><button onClick={onclickHandler}>퀴즈 등록 하기</button><span><button onClick={() => {window.location.replace("/")}}>취소</button></span></Btns>
       </div>
     </ModalBody>
   );
@@ -45,7 +61,7 @@ function PostinModal() {
 
 export default PostinModal;
 
-let ModalBody = styled.form`
+let ModalBody = styled.div`
   position: fixed;
   left: 0;
   right: 0;
@@ -77,6 +93,12 @@ let ModalBody = styled.form`
     margin: auto;
     height: 50px;
     text-align: center;
+  }
+  p {
+    margin: auto;
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
   }
 `
 
