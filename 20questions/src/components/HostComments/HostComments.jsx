@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { RESP } from "../../Mock_API/respons";
+import { useDispatch, useSelector } from "react-redux";
+import {__getContent} from "../../redux/modules/ContentList"
 
 const HostComments = () => {
-    const { data } = RESP;
-    const comments = data
+    const comments = useSelector((state) => state.getlist.data)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(__getContent());
+    }, []);
 
     return (
         <>

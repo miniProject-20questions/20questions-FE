@@ -11,6 +11,7 @@ function Detail() {
                 <Quiz>문제</Quiz>
                 <Alse><div>3시간 전</div><div>댓글수/7<span style={{"marginleft": "15px", "fontweight": "bold"}}>작성자/종원님</span></div></Alse>
             </DetailBody>
+            <GuestComments/>
             {/* {NowId === HostId ? <HostComments/> : <GuestComments />} */}
         </>
     );

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { __CommentPost } from "../../redux/modules/PostingContent"
-import { RESP } from "../../Mock_API/respons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { __CommentPost } from "../../redux/modules/PostingContent"
 import {__getContent} from "../../redux/modules/ContentList"
+import styled from "styled-components";
 
 const GuestComments = () => {
 
-    const { data } = RESP;
-    const comments = data
-    console.log(data)
-
+    const comments = useSelector((state) => state.getlist.data)
+  
     useEffect(() => {
         dispatch(__getContent());
     }, []);
