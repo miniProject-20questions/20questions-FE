@@ -7,6 +7,8 @@ import PostingModal from "../components/PostingModal/PostingModal";
 import { __getList } from '../redux/modules/MainList'
 
 function Main() {
+    // const Imgurl = "http://image.yes24.com/blogimage/blog/s/o/soojinja/20151022143825875437.jpg"
+    const [Imgurl, setImgurl] = useState("");
     const navigate = useNavigate();
     
     const dispatch = useDispatch();
@@ -19,9 +21,9 @@ function Main() {
     const [limit] = useState(6);
     const [page, setPage] = useState(1);
 
-    const [categoty, setCategoty] = useState(1);
+    const [category, setCategory] = useState(0);
     const handleChange = (e) => {
-        setCategoty(e.target.value)
+        setCategory(e.target.value)
     }
 
     const indexOfLastPost = page * limit;
@@ -37,7 +39,7 @@ function Main() {
         <MainBox>
             <Select>
                 <select onChange={(e) => handleChange(e)}>
-                    <option value={2}>--- 카테고리 선택 ---</option>
+                    <option value={0}>--- 카테고리 선택 ---</option>
                     <option value={1}>인물</option>
                     <option value={2}>동물</option>
                     <option value={3}>영화</option>
@@ -49,17 +51,27 @@ function Main() {
             </Select>
             <IngList>
                 {currentCountings.map((count) => (
-                    count.category === +categoty ?
+                    count.category === +category ?
                         <div key={count.quizId} onClick={() => {
                             navigate(`/detail/${count.quizId}`);
                         }}>
-                            <Img></Img>
+                            {count.category === 2 ? setImgurl('') : ''}
+                            <Img style={{ width: "95%", height: "100px", "backgroundImage": `url(${Imgurl})` }}></Img>
                             <p style={{"fontWeight": "bold"}}>제목 {count.title}</p>
                             <p>작성자 {count.nickname}님</p>
                             <p>작성자 답변 개수{count.count} / 20</p>
                             <p>작성 일자 {count.date}</p>
                         </div> :
-                        ''
+                        category === 0 ? <div key={count.quizId} onClick={() => {
+                            navigate(`/detail/${count.quizId}`);
+                        }}>
+                            {count.category === 2 ? setImgurl('') : ''}
+                            <Img style={{ width: "95%", height: "100px", "backgroundImage": `url(${Imgurl})` }}></Img>
+                            <p style={{"fontWeight": "bold"}}>제목 {count.title}</p>
+                            <p>작성자 {count.nickname}님</p>
+                            <p>작성자 답변 개수{count.count} / 20</p>
+                            <p>작성 일자 {count.date}</p>
+                        </div> : ''
                 ))}
             </IngList>
             <PostBtn onClick={() => {
@@ -112,10 +124,8 @@ let IngList = styled.div`
     justify-content: center;
     box-shadow: 6px 6px 6px 6px #0000ff19;
     padding: 5px;
-
-    
     flex-direction: column;
-        align-items: center;
+    align-items: center;
     div { 
         width: 30%;
         height: 215px;
@@ -154,5 +164,4 @@ const Img = styled.p`
     background-size: cover;
     background-position: center;
     background-color: transparent;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.266), rgba(220, 207, 207, 0.541)), url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
 `
