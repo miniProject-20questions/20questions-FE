@@ -6,9 +6,11 @@ function Header() {
   const navigate = useNavigate();
   return (
     <HeaderBox>
-      <p>20 Question.</p>
+      <p onClick={() => {
+            navigate("/");
+          }}>20 Question.</p>
       <div>
-        <HeaderBtns
+        <HeaderBtn
           onClick={() => {
             navigate("/login");
           }}
@@ -30,18 +32,16 @@ function Header() {
 export default Header;
 
 let HeaderBox = styled.div`
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  background-image: linear-gradient(
+  background-color: #6633994c;
+  /* background-image: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.266),
       rgba(220, 207, 207, 0.541)
     ),
-    url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0");
+    url("https://tse4.mm.bing.net/th?id=OIP.7qq-I6LTpKgoV7idhqMfQgHaHV&pid=Api&P=0"); */
 
   height: 130px;
-  width: 80%;
+  width: 60%;
   margin: auto;
 
   display: flex;
@@ -54,7 +54,7 @@ let HeaderBox = styled.div`
   }
   div {
     margin: auto 0 0 auto;
-    width: 215px;
+    width: 100px;
     height: 30px;
     display: flex;
     justify-content: center;
@@ -62,13 +62,12 @@ let HeaderBox = styled.div`
   }
 `;
 
-let HeaderBtns = styled.button`
+let HeaderBtn = styled.button`
   min-width: 80px;
   margin-right: 3px;
   width: 8%;
   padding: 3px;
-  border: 1px solid #ff00668d;
+  border: 1px solid black;
   border-radius: 4px;
-  background-color: #ff00668a;
-  color: white;
+  background-color: #c8ff006d;
 `;
