@@ -8,22 +8,30 @@ import { __PatchOX } from "../../redux/modules/PatchOX";
 const HostComments = () => {
     const comments = useSelector((state) => state.contentgetlist.data.data)
     const dispatch = useDispatch();
+    
+    const params = useParams();
+    const quizId = params.quizId
+
     useEffect(() => {
         dispatch(__getContent(quizId));
     }, []);
+    
+    const [questionId, setQuestionId] = useState(null)
 
-    const params = useParams();
-    const quizId = params.quizId
+    const onclickHandler = () => {
+        setQuestionId(Comment.solved)
+        dispatch(__PatchOX({solved: true}))
+    }
     return (
         <>
             <div>
                 <HostBody>
-                    {comments.length === 0 ? <div>등록된 질문이 없습니다.</div> : ''}
-                    {comments.map((comment) => (
+                    {comments?.length === 0 ? <div>등록된 질문이 없습니다.</div> : ''}
+                    {comments?.map((comment) => (
                         <div key={comment.count} style={{ 'width': '100%' }}>
-                            {comments.length === 0 ? '' :
+                            {comments?.length === 0 ? '' :
                                 <div>
-                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button onClick={dispatch(__PatchOX({solved: true, quizId, questionId: comment.questionId }))}>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
+                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button onClick={onclickHandler}>O</button><button onClick={dispatch(__PatchOX({solved: false, quizId, questionId: comment.questionId }))}>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
                                 </div>}
                         </div>
                     ))}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import GuestComments from "../components/GuestComments/GuestComments";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import HostComments from "../components/HostComments/HostComments";
+import HostComments from "../components/HostComments/HostComments";
 // import { useParams } from "react-router-dom";
 
 function Detail() {
@@ -11,6 +11,7 @@ function Detail() {
   const param = useParams();
   const quizId = +param.quizId;
   const [quiz, setQuiz] = useState({});
+
   const readQuiz = async () => {
     await axios
       .get("http://juddyy.shop/api/quiz/" + quizId, {
@@ -55,7 +56,8 @@ function Detail() {
           </div>
         </Alse>
       </DetailBody>
-      <GuestComments />
+      <HostComments />
+      {/* <GuestComments /> */}
       {/* {NowId === HostId ? <HostComments/> : <GuestComments />} */}
     </>
   );

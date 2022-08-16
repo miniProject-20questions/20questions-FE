@@ -10,6 +10,7 @@ const initialState = {
 const token = localStorage.getItem("token");
 
 export const __CommentPost = createAsyncThunk("contentpost/contentPost", async (payload, api) => {
+  console.log(payload)
     try {
     const data = await axios.post(`http://juddyy.shop/api/question/22`, payload, {
       headers: {
