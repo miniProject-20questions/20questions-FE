@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { __CommentPost } from "../../redux/modules/PostingContent"
 import {__getContent} from "../../redux/modules/ContentList"
@@ -9,24 +9,27 @@ import {__PatchCategory} from "../../redux/modules/PatchCategory"
 import styled from "styled-components";
 
 const GuestComments = () => {
-
-    const comments = useSelector((state) => state.getlist.data)
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(__getContent(quizId));
-    }, []);
-    console.log(comments)
-
-    const [view, setView] = useState(true);
     const params = useParams();
     const quizId = params.quizId
 
-    const [content, setContent] = useState('');
+    const comments = useSelector((state) => state.contentgetlist.data)
+    console.log(comments)
+    const dispatch = useDispatch();
     
+    useEffect(() => {
+        if(comments?.data)
+        {dispatch(__getContent(quizId))
+        }
+        
+    }, []);
 
+    const [view, setView] = useState(true);
+    
+    const [content, setContent] = useState("");
+    
     const onclickHandler = () => {
         content === '' ? alert("질문이나 정답을 입력해주세요!") :
-            dispatch(__CommentPost({ content }))
+            dispatch(__CommentPost({ content, quizId }))
         // answer === content ? 
         // dispatch(__PatchCategory({category: +7, quizId})) :
         alert('질문이 등록되었습니다!')
@@ -50,9 +53,9 @@ const GuestComments = () => {
                     {comments.map((comment) => (
                         <GuestList key={comment.count}>
                             {comment.solved === null ? <div>
-                                <div><p>{comment.title}</p><OXP>출제자가 O/X를 선택하지 않았습니다.</OXP></div>
+                                <div><p>{comment.content}</p><OXP>출제자가 O/X를 선택하지 않았습니다.</OXP></div>
                             </div> :
-                                <div><p>{comment.title}</p>{comment.solved === false ?
+                                <div><p>{comment.content}</p>{comment.solved === false ?
                                     <ListBack>X</ListBack> :
                                     <ListBack>O</ListBack>}</div>}
                         </GuestList>
