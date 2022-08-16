@@ -32,7 +32,7 @@ const getContentSlice = createSlice({
       state.isLoading = true; //
     },
     [__getContent.fulfilled]: (state, action)=> {
-      state.data = action.payload; 
+      state.data.data = action.payload; 
     },
     [__getContent.rejected] : (state, action) => {
       console.log(action); //생략가능부분

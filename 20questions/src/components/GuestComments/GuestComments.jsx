@@ -12,15 +12,12 @@ const GuestComments = () => {
     const params = useParams();
     const quizId = params.quizId
 
-    const comments = useSelector((state) => state.contentgetlist.data)
+    const comments = useSelector((state) => state.contentgetlist)
     console.log(comments)
     const dispatch = useDispatch();
     
     useEffect(() => {
-        if(comments?.data)
-        {dispatch(__getContent(quizId))
-        }
-        
+        dispatch(__getContent(quizId))  
     }, []);
 
     const [view, setView] = useState(true);
