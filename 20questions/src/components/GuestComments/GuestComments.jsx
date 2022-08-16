@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import { __CommentPost } from "../../redux/modules/PostingContent"
 import {__getContent} from "../../redux/modules/ContentList"
+import {__PatchCategory} from "../../redux/modules/PatchCategory"
+
 import styled from "styled-components";
 
 const GuestComments = () => {
@@ -23,8 +26,9 @@ const GuestComments = () => {
 
     const onclickHandler = () => {
         content === '' ? alert("질문이나 정답을 입력해주세요!") :
-            dispatch(__CommentPost({ content, quizId }))
-        // answer === content ? alert("정답입니다!") :
+            dispatch(__CommentPost({ content }))
+        // answer === content ? 
+        // dispatch(__PatchCategory({category: +7, quizId})) :
         alert('질문이 등록되었습니다!')
     }
 

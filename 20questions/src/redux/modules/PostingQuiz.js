@@ -9,8 +9,10 @@ const initialState = {
 
 export const __Posting = createAsyncThunk("posting/Posting", async (payload, api) => {
   try {
-    const data = await axios.post("http://juddyy.shop/api/quiz", payload);
-   return api.fulfillWithValue(data.data);
+    const data = await axios.post("http://juddyy.shop/api/quiz", payload, {
+      headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmciLCJpYXQiOjE2NjA2MjQyMDR9.FI-gGbmq_FMrpVIY4jAknrzwedD6a2qlLEvFTG2MSEk`}
+    });
+   return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);
   }
