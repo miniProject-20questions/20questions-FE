@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 function Detail() {
   const token = localStorage.getItem("token");
+  console.log(token);
   const param = useParams();
   const quizId = +param.quizId;
   const [quiz, setQuiz] = useState({});
@@ -18,13 +19,13 @@ function Detail() {
       })
       .then((res) => setQuiz(res.data));
   };
-  console.log(quiz.title);
-  // console.log(quiz.title);
-  // const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric",
-  // });
+  console.log(quiz);
+
+  const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   useEffect(() => {
     readQuiz();
   }, []);
@@ -40,18 +41,18 @@ function Detail() {
     <>
       <DetailBody>
         <TopContainer>
-          <Cetegoty>7</Cetegoty>
+          <Cetegoty>{quiz.category}</Cetegoty>
           {}
           <DelBtn onClick={deleteHandler}>삭제</DelBtn>
         </TopContainer>
 
-        <Quiz>title</Quiz>
+        <Quiz>{quiz.title}</Quiz>
         <Alse>
-          <div>0909</div>
+          <div>{writeDate}</div>
           <div>
-            (5/20)
+            ({quiz.count}/20)
             <span style={{ marginleft: "15px", fontweight: "bold" }}>
-              작성자 : {quiz.title}
+              작성자:{quiz.nickname}
             </span>
           </div>
         </Alse>
