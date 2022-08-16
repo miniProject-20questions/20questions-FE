@@ -9,9 +9,10 @@ const initialState = {
 
 export const __Posting = createAsyncThunk("posting/Posting", async (payload, api) => {
   try {
-    const data = await axios.post("http://localhost:3001/quiz", payload);
-    console.log(payload)
-   return api.fulfillWithValue(data.data);
+    const data = await axios.post("http://juddyy.shop/api/quiz", payload, {
+      headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmciLCJpYXQiOjE2NjA2MjQyMDR9.FI-gGbmq_FMrpVIY4jAknrzwedD6a2qlLEvFTG2MSEk`}
+    });
+   return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);
   }
@@ -27,7 +28,7 @@ const postingSlice = createSlice({
       state.isLoading = true; //
     },
     [__Posting.fulfilled]: (state, action)=> {
-      state.quiz = action.payload; 
+      state.data = action.payload; 
     },
     [__Posting.rejected] : (state, action) => {
       console.log(action); //생략가능부분
