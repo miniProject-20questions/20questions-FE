@@ -13,7 +13,7 @@ function Detail() {
             </DetailBody>
             <GuestComments/>
             {/* <HostComments/> */}
-            {/* {NowNick === HostNick ? <HostComments/> : <GuestComments category={ss.category}/>} */}
+            {/* {NowNick === HostNick ? <HostComments/> : <GuestComments/>} */}
         </>
     );
 }
