@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function LoginLayout() {
   const [user, setUser] = useState({
@@ -17,12 +18,15 @@ function LoginLayout() {
     });
   };
 
+  const navigate = useNavigate();
   const login = (e) => {
     // e.preventDefault();
     axios.post("http://juddyy.shop/api/auth/signin", user).then((res) => {
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         console.log(res);
+        alert("로그인완료");
+        navigate("/");
       } else alert("아이디가 존재하지 않습니다.");
     });
   };

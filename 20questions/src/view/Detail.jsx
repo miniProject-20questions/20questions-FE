@@ -1,47 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GuestComments from "../components/GuestComments/GuestComments";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 // import HostComments from "../components/HostComments/HostComments";
 // import { useParams } from "react-router-dom";
 
 function Detail() {
-  // const token = localStorage.getItem("token");
-  // const param = useParams().quizid;
-  // console.log(param);
-  // const [quiz, setQuiz] = useState({});
+  const token = localStorage.getItem("token");
+  const param = useParams();
+  const quizId = +param.quizId;
+  const [quiz, setQuiz] = useState({});
   const readQuiz = async () => {
-    const { data } = await axios
-      .get("http://juddyy.shop/api/quiz/1", {
-        headers: {
-          Authorization: `Beaver eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFzZ…EyNH0.XUacaBPcqV1NkHHXuKH8XGQwtlFIUjdMK-wTZs0rRCA`,
-        },
+    await axios
+      .get("http://juddyy.shop/api/quiz/" + quizId, {
+        headers: { Authorization: `BEAVER ${token}` },
       })
-      .then((resp) => {
-        console.log(resp);
-        console.log(data);
-      });
+      .then((res) => setQuiz(res.data));
   };
-
-  // console.log(quiz);
-  // useEffect(() => {
-  //   readQuiz();
-  // }, []);
+  console.log(quiz.title);
+  // console.log(quiz.title);
+  // const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  // });
+  useEffect(() => {
+    readQuiz();
+  }, []);
+  const deleteHandler = async () => {
+    await axios
+      .delete("http://juddyy.shop/api/quiz/" + quizId, {
+        headers: { Authorization: `BEAVER ${token}` },
+      })
+      .then((res) => alert("삭제되었습니다."));
+    // nav(-1);
+  };
   return (
     <>
       <DetailBody>
         <TopContainer>
-          <Cetegoty>문제 카테고리</Cetegoty>
-          <DelBtn onClick={readQuiz}>삭제</DelBtn>
+          <Cetegoty>7</Cetegoty>
+          {}
+          <DelBtn onClick={deleteHandler}>삭제</DelBtn>
         </TopContainer>
 
-        <Quiz>문제</Quiz>
+        <Quiz>title</Quiz>
         <Alse>
-          <div>3시간 전</div>
+          <div>0909</div>
           <div>
-            댓글수/7
+            (5/20)
             <span style={{ marginleft: "15px", fontweight: "bold" }}>
-              작성자/종원님
+              작성자 : {quiz.title}
             </span>
           </div>
         </Alse>
