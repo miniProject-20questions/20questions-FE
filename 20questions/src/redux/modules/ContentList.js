@@ -9,14 +9,14 @@ const initialState = {
 
 
 export const __getContent = createAsyncThunk("contentgetlist/contentgetList", async (payload, api) => {
-
+  console.log("모듈 갔니")
   try {
     const data = await axios.get(
-      `http://juddyy.shop/api/question/:${payload}}`, {
+      `http://juddyy.shop/api/question/${payload}`, {
         headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmciLCJpYXQiOjE2NjA2MjQyMDR9.FI-gGbmq_FMrpVIY4jAknrzwedD6a2qlLEvFTG2MSEk`}
       }
     );
-   return api.fulfillWithValue(data.data.result);
+   return api.fulfillWithValue(data.data);
   } catch(e) {
   return api.rejectWithValue(e);
   }
