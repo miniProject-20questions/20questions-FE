@@ -12,7 +12,7 @@ root.render(
   <div>
     <BrowserRouter>
       <Provider store={store}>
-      <App />
+        <App />
       </Provider>
     </BrowserRouter>
   </div>
