@@ -12,7 +12,7 @@ export const __Posting = createAsyncThunk(
     try {
       const data = await axios.post("http://juddyy.shop/api/quiz", payload, {
         headers: {
-          authorization: `BEAVER ${token}`,
+          Authorization: `BEAVER ${token}`,
         },
       });
       return api.fulfillWithValue(data.data.result);

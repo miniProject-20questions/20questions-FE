@@ -12,57 +12,101 @@ function JoinLayout() {
     confirm: "",
     nickname: "",
   });
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
+  //state
+  const [idvalidate, setIdvalidate] = useState(false);
+  const [pwvalidate, setPwvalidate] = useState(false);
+  const [pwcheck, setPwcheck] = useState(false);
+  const [nickcheck, setNickcheck] = useState(false);
+  // validate
+  const IdChange = (e) => {
+    const { value } = e.target;
     setUser({
       ...user,
-      [name]: value,
+      id: value,
     });
+
+    const regExp = /[a-zA-Z0-9]{4,9}$/;
+    if (regExp.test(user.id)) {
+      setIdvalidate(true);
+    } else {
+      setIdvalidate(false);
+    }
+  };
+  const PwChange = (e) => {
+    const { value } = e.target;
+    setUser({
+      ...user,
+      password: value,
+    });
+
+    const regExp = /[a-zA-Z0-9]{4,9}$/;
+    if (regExp.test(user.password)) {
+      setPwvalidate(true);
+    } else {
+      setPwvalidate(false);
+    }
   };
 
-  // const idValidate = () => {
-  //   const regExp = /[a-zA-Z0-9]{4,8}$/; // 각각 MIN:8 MAX:15로 제한
-  //   let inputId = user.id;
-  //   const idtest = regExp.test(inputId);
-  //   if (!idtest) {
-  //     setValidate;
-  //   } else {
-  //     //데이터를 보내면 되나?
-  //     console.log("합격");
-  //   }
+  // const onChange = (e) => {
+  //   const { value } = e.target;
+  //   setUser({
+  //     ...user,
+  //     confirm: value,
+  //   });
   // };
-  // const pwValidate = () => {
-  //   const regExp = /[a-zA-Z0-9]{4,8}$/; // 각각 MIN:8 MAX:15로 제한
-  //   let inputId = id.id;
-  //   const idtest = regExp.test(inputId);
-  //   if (!idtest) {
-  //     alert("아이디는 영문숫자 8자리 이상으로 구성하여야 합니다.");
-  //   } else {
-  //     //데이터를 보내면 되나?
-  //     console.log("합격");
-  //   }
-  // };
+
+  const pwCofirm = () => {
+    if (user.password === user.confirm) {
+      setPwcheck(true);
+    } else {
+      setPwcheck(false);
+    }
+  };
+
+  const nickCheck = (e) => {
+    const { value } = e.target;
+    setUser({
+      ...user,
+      nickname: value,
+    });
+
+    if (user.nickname.length >= 2 && user.nickname.length <= 8) {
+      setNickcheck(true);
+    } else {
+      setNickcheck(false);
+    }
+  };
+  console.log(user);
+
+  //가입하기
   const navigate = useNavigate();
   const Join = (e) => {
-    axios.post("http://juddyy.shop/api/auth/signup", user).then((res) => {
-      console.log(res);
-      alert("가입완료");
-    });
-    navigate("/login");
-    setUser({
-      id: "",
-      password: "",
-      confirm: "",
-      nickname: "",
-    });
+    if (user.password === user.confirm) {
+      axios.post("http://juddyy.shop/api/auth/signup", user).then((res) => {
+        console.log(res);
+        alert("가입완료");
+      });
+      navigate("/login");
+      setUser({
+        id: "",
+        password: "",
+        confirm: "",
+        nickname: "",
+      });
+    } else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
   };
 
   const Dublecheck = (e) => {
     axios
       .post("http://juddyy.shop/api/auth/idCheck", { id: user.id })
       .then((res) => {
-        console.log(res);
+        if (res.data === "SUCCES") {
+          alert("사용가능한 아이디입니다.");
+        } else {
+          alert("이미 존재하는 아이디입니다.");
+        }
       });
   };
 
@@ -75,38 +119,56 @@ function JoinLayout() {
             <InputInfo
               ID
               placeholder="아이디"
-              onChange={onChange}
+              onChange={IdChange}
               name="id"
               value={user.id.result}
               maxLength="9"
             />
             <ValidateBtn onClick={Dublecheck}>중복 확인</ValidateBtn>
           </div>
-          <InfoP>아이디는 4-9자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          {idvalidate ? (
+            <InfoP style={{ color: "blue" }}>안전한 아이디입니다.</InfoP>
+          ) : (
+            <InfoP>아이디는 4-9자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          )}
+
           <InputInfo
             placeholder="비밀번호"
-            onChange={onChange}
+            onChange={PwChange}
             name="password"
             value={user.password.result}
             maxLength="9"
           />
-
-          <InfoP>비밀번호는 4-9자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          {pwvalidate ? (
+            <InfoP style={{ color: "blue" }}>안전한 비밀번호입니다.</InfoP>
+          ) : (
+            <InfoP>비밀번호는 4-9자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          )}
 
           <InputInfo
             placeholder=" 비밀번호 재입력"
-            onChange={onChange}
             name="confirm"
             value={user.confirm.result}
             maxLength="9"
           />
+          {pwcheck ? (
+            <InfoP style={{ color: "blue" }}>비밀번호가 일치합니다.</InfoP>
+          ) : (
+            <InfoP>비밀번호를 다시 확인해주세요.</InfoP>
+          )}
           <InputInfo
             placeholder=" 닉네임"
-            onChange={onChange}
+            onChange={nickCheck}
             name="nickname"
+            maxLength="8"
             value={user.nickname.result}
           />
-          <InfoP>닉네임은 4글자 이상 입력해주세요.</InfoP>
+          {nickcheck ? (
+            <InfoP style={{ color: "blue" }}>너무 잘 어울려요!</InfoP>
+          ) : (
+            <InfoP>2-8자로 입력해주세요</InfoP>
+          )}
+
           <ButtonArea>
             <ButtonFull onClick={Join}>회원가입</ButtonFull>
             <Button>취소</Button>

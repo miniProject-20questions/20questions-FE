@@ -29,6 +29,7 @@ function Detail() {
   useEffect(() => {
     readQuiz();
   }, []);
+
   const deleteHandler = async () => {
     await axios
       .delete("http://juddyy.shop/api/quiz/" + quizId, {
