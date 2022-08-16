@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 
 function Detail() {
   const token = localStorage.getItem("token");
-  console.log(token);
   const param = useParams();
   const quizId = +param.quizId;
   const [quiz, setQuiz] = useState({});
@@ -19,7 +18,6 @@ function Detail() {
       })
       .then((res) => setQuiz(res.data));
   };
-  console.log(quiz);
 
   const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
     year: "numeric",

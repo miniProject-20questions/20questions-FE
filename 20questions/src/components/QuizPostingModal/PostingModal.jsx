@@ -19,8 +19,10 @@ function PostinModal() {
     } else if (category === 0) {
       alert("카테고리를 입력해주세요!");
     } else {
-      // window.location.replace('/')
+      
       dispatch(__Posting({ category, title, answer }));
+      window.location.replace('/')
+      alert("퀴즈등록이 완료되었습니다.")
     }
   };
 

@@ -12,34 +12,29 @@ const GuestComments = () => {
     const params = useParams();
     const quizId = params.quizId
 
-    const comments = useSelector((state) => state.contentgetlist.data)
-    console.log(comments)
+    const comments = useSelector((state) => state.contentgetlist.data.data)
     const dispatch = useDispatch();
     
-    useEffect(() => {
-        if(comments?.data)
-        {dispatch(__getContent(quizId))
-        }
-        
-    }, []);
-
-    const [view, setView] = useState(true);
+    const [view, setView] = useState(true); 
     
     const [content, setContent] = useState("");
     
     const onclickHandler = () => {
         content === '' ? alert("질문이나 정답을 입력해주세요!") :
-            dispatch(__CommentPost({ content, quizId }))
+            dispatch(__CommentPost({ content }))
+            dispatch(__getContent(quizId))
         // answer === content ? 
         // dispatch(__PatchCategory({category: +7, quizId})) :
         alert('질문이 등록되었습니다!')
     }
 
     useEffect(() => {
-        comments.map((comment) => {
-            if (comment.solved || comment.category === null) {
-                setView(false)
-            }
+        dispatch(__getContent(quizId))
+         comments?.map((comment) => {
+             if (comment.solved || comment.category === null) {
+                 setView(false)
+             }
+            return
         })
     }, []);
 
@@ -48,9 +43,9 @@ const GuestComments = () => {
             <div>
                 <GuestBody>
                     <div>
-                        {view === true && comments.length <= 19 ? <div><input onChange={(e) => setContent(e.target.value)}></input><button onClick={onclickHandler}>질문하기</button></div> : ''}
+                        {view === true && comments?.length <= 19 ? <div><input onChange={(e) => setContent(e.target.value)}></input><button onClick={onclickHandler}>질문하기</button></div> : ''}
                     </div>
-                    {comments.map((comment) => (
+                    {comments?.map((comment) => (
                         <GuestList key={comment.count}>
                             {comment.solved === null ? <div>
                                 <div><p>{comment.content}</p><OXP>출제자가 O/X를 선택하지 않았습니다.</OXP></div>

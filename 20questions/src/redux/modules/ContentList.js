@@ -7,18 +7,20 @@ const initialState = {
   error: null, //
 }
 
+const token = localStorage.getItem("token");
 
 export const __getContent = createAsyncThunk("contentgetlist/contentgetList", async (payload, api) => {
-  console.log("모듈 갔니")
+
   try {
     const data = await axios.get(
       `http://juddyy.shop/api/question/${payload}`, {
-        headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmciLCJpYXQiOjE2NjA2MjQyMDR9.FI-gGbmq_FMrpVIY4jAknrzwedD6a2qlLEvFTG2MSEk`}
-      }
-    );
-   return api.fulfillWithValue(data.data);
-  } catch(e) {
-  return api.rejectWithValue(e);
+      headers: {
+        authorization: `BEAVER ${token}`
+      },
+    });
+    return api.fulfillWithValue(data.data);
+  } catch (e) {
+    return api.rejectWithValue(e);
   }
 });
 
@@ -31,10 +33,10 @@ const getContentSlice = createSlice({
     [__getContent.pending]: (state) => {
       state.isLoading = true; //
     },
-    [__getContent.fulfilled]: (state, action)=> {
-      state.data = action.payload; 
+    [__getContent.fulfilled]: (state, action) => {
+      state.data = action.payload;
     },
-    [__getContent.rejected] : (state, action) => {
+    [__getContent.rejected]: (state, action) => {
       console.log(action); //생략가능부분
     }
   },
