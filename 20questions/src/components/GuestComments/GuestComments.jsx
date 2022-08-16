@@ -15,7 +15,7 @@ const GuestComments = () => {
     useEffect(() => {
         dispatch(__getContent(quizId));
     }, []);
-
+    console.log(comments)
 
     const [view, setView] = useState(true);
     const params = useParams();
@@ -50,9 +50,9 @@ const GuestComments = () => {
                     {comments.map((comment) => (
                         <GuestList key={comment.count}>
                             {comment.solved === null ? <div>
-                                <div><p>{comment.content}</p><OXP>출제자가 O/X를 선택하지 않았습니다.</OXP></div>
+                                <div><p>{comment.title}</p><OXP>출제자가 O/X를 선택하지 않았습니다.</OXP></div>
                             </div> :
-                                <div><p>{comment.content}</p>{comment.solved === false ?
+                                <div><p>{comment.title}</p>{comment.solved === false ?
                                     <ListBack>X</ListBack> :
                                     <ListBack>O</ListBack>}</div>}
                         </GuestList>

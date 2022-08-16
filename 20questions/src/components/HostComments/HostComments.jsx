@@ -14,7 +14,6 @@ const HostComments = () => {
 
     const params = useParams();
     const quizId = params.quizId
-
     return (
         <>
             <div>
@@ -24,7 +23,7 @@ const HostComments = () => {
                         <div key={comment.count} style={{ 'width': '100%' }}>
                             {comments.length === 0 ? '' :
                                 <div>
-                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button onClick={dispatch(__PatchOX({solved: true, quizId, questionId: comment.questionId }))}>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
+                                    {comment.solved === null ? <div><Checkdiv><div>{comment.title}</div><p><button onClick={dispatch(__PatchOX({solved: true, quizId, questionId: comment.questionId }))}>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.title}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.title}<p><button>X</button></p></DoneCheckdiv>}</div>}
                                 </div>}
                         </div>
                     ))}

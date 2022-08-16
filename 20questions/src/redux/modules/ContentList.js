@@ -12,7 +12,7 @@ export const __getContent = createAsyncThunk("contentgetlist/contentgetList", as
 
   try {
     const data = await axios.get(
-      `http://juddyy.shop/api/question/:${payload.quizId}}`, {
+      `http://juddyy.shop/api/question/:${payload}}`, {
         headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmciLCJpYXQiOjE2NjA2MjQyMDR9.FI-gGbmq_FMrpVIY4jAknrzwedD6a2qlLEvFTG2MSEk`}
       }
     );
