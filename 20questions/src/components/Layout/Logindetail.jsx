@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import styled from "styled-components";
 
 function LoginLayout() {
   const [user, setUser] = useState({
     id: "",
-    pw: "",
+    password: "",
   });
 
   const onChange = (e) => {
@@ -16,21 +16,16 @@ function LoginLayout() {
       [name]: value,
     });
   };
-  //axios
-  // const Login = (e) => {
-  //   axios.post("http://localhost:3001/user", user).then((response) => {
-  //     if (response.data.accessToken) {
-  //       console.log(response.data.Token);
-  //       setCookie(//백엔드에서 정해준 쿠키이름?, JSON.stringify(response.data));
-  //       // 객체를 json으로 바꿔준다.
-  //     }
-  //   });
-  // };
-  // //
 
-  // const Logout = (e) => {
-  //   localStorage.removeItem("user");
-  // };
+  const login = (e) => {
+    // e.preventDefault();
+    axios.post("http://juddyy.shop/api/auth/signin", user).then((res) => {
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        console.log(res);
+      } else alert("아이디가 존재하지 않습니다.");
+    });
+  };
   return (
     <Layout>
       <Title>로그인</Title>
@@ -40,19 +35,19 @@ function LoginLayout() {
             placeholder="아이디"
             onChange={onChange}
             name="id"
-            value={user.id}
+            value={user.id.result}
           />
           <InputInfo
             placeholder="비밀번호"
             onChange={onChange}
-            name="pw"
-            value={user.pw}
+            name="password"
+            value={user.password.result}
           />
         </Box>
 
         <Box>
           <ButtonArea>
-            <Button>로그인</Button>
+            <Button onClick={login}>로그인</Button>
           </ButtonArea>
           {/* <Hr />
             <InfoP style={{ margin: "0 auto", textAlign: "center" }}>

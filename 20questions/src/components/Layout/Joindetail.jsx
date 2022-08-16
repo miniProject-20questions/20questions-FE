@@ -6,36 +6,40 @@ import styled from "styled-components";
 function JoinLayout() {
   const [user, setUser] = useState({
     id: "",
-    pw: "",
+    password: "",
     confirm: "",
     nickname: "",
   });
 
-  // const [validate, setValidate] = useState(true);
+  const [validate, setValidate] = useState(true);
   const onChange = (e) => {
     const { name, value } = e.target;
     setUser({
       ...user,
       [name]: value,
     });
-    // if (value.length > 15) {
-    //   setUser({
-    //     ...setUser,
-    //     id: user.id,
-    //   });
-    // }
-    // const regExp = /[a-zA-Z0-9]{4,8}$/; // 각각 4-8까지 입력가능
-    // let inputId = value;
-    // const idtest = regExp.test(inputId);
-    // if (!idtest) {
-    //   return setValidate(true);
-    // } else {
-    //   return setValidate(false);
-    // }
+    const regExp = /[a-zA-Z0-9]{4,9}$/;
+    let inputId = value;
+    const idtest = regExp.test(inputId);
+    if (!idtest) {
+      return setValidate(true);
+    } else {
+      return setValidate(false);
+    }
   };
-  //axios
   const Join = (e) => {
-    axios.post("http://localhost:3001/user", user);
+    axios.post("http://juddyy.shop/api/auth/signup", user).then((res) => {
+      console.log(res);
+      alert("가입완료");
+    });
+  };
+  console.log(user.id);
+  const Dublecheck = (e) => {
+    axios
+      .post("http://juddyy.shop/api/auth/idCheck", { id: user.id })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (
@@ -43,33 +47,42 @@ function JoinLayout() {
       <Title>회원가입</Title>
       <Container>
         <Box>
-          <InputInfo
-            placeholder="아이디"
-            onChange={onChange}
-            name="id"
-            value={user.id}
-          />
-          <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
-          <button>확인</button>
+          <div>
+            <InputInfo
+              ID
+              placeholder="아이디"
+              onChange={onChange}
+              name="id"
+              value={user.id.result}
+            />
+            <ValidateBtn onClick={Dublecheck}>중복 확인</ValidateBtn>
+          </div>
+          {validate ? (
+            <InfoP>아이디는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+          ) : (
+            <InfoP style={{ color: "red" }}>사용 가능한 아이디입니다.</InfoP>
+          )}
+
           <InputInfo
             placeholder="비밀번호"
             onChange={onChange}
-            name="pw"
-            value={user.pw}
+            name="password"
+            value={user.password.result}
           />
+
           <InfoP>비밀번호는 4-8자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
+
           <InputInfo
             placeholder=" 비밀번호 재입력"
             onChange={onChange}
             name="confirm"
-            value={user.confirm}
+            value={user.confirm.result}
           />
-          <InfoP>비밀번호를 다시 한 번 입력해주세요.</InfoP>
           <InputInfo
             placeholder=" 닉네임"
             onChange={onChange}
             name="nickname"
-            value={user.nickname}
+            value={user.nickname.result}
           />
           <ButtonArea>
             <ButtonFull onClick={Join}>회원가입</ButtonFull>
@@ -128,7 +141,7 @@ const Box = styled.div`
 `;
 
 const InputInfo = styled.input`
-  width: 300px;
+  width: ${(props) => (props.ID ? "210px" : "300px")};
   height: 40px;
   border: 2px solid #eee;
   border-radius: 2px;
@@ -147,7 +160,7 @@ const ButtonArea = styled.div`
 `;
 
 const ButtonFull = styled.button`
-  width: ${(props) => (props.Max ? "300px" : "140px")};
+  width: 140px;
   height: 35px;
   background-color: #e8344e;
   /* border: 1px solid #e8344e; */
@@ -157,7 +170,7 @@ const ButtonFull = styled.button`
 `;
 
 const Button = styled.button`
-  width: ${(props) => (props.Max ? "300px" : "140px")};
+  width: 140px;
   height: 35px;
   background-color: #fff;
   border: 1px solid #e8344e;
@@ -169,4 +182,14 @@ const InfoP = styled.p`
   margin: 0;
   font-size: 12px;
   width: 300px;
+`;
+
+const ValidateBtn = styled.button`
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #e8344e;
+  border-radius: 3px;
+  color: #e8344e;
+  margin-left: 10px;
 `;

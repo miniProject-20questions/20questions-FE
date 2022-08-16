@@ -6,9 +6,13 @@ function Header() {
   const navigate = useNavigate();
   return (
     <HeaderBox>
-      <p onClick={() => {
-            navigate("/");
-          }}>20 Question.</p>
+      <p
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        20 Question.
+      </p>
       <div>
         <HeaderBtn
           onClick={() => {
@@ -16,14 +20,14 @@ function Header() {
           }}
         >
           로그인
-        </HeaderBtns>
-        <HeaderBtns
+        </HeaderBtn>
+        <HeaderBtn
           onClick={() => {
             navigate("/join");
           }}
         >
           회원가입
-        </HeaderBtns>
+        </HeaderBtn>
       </div>
     </HeaderBox>
   );

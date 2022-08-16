@@ -5,18 +5,17 @@
       "nickname": "영은",
       "password": "yeun1234",
       "confirm": "yeun1234"
-    },
+    }
+  ],
+  "quiz": [
     {
-      "id": "ㄴㅇㅁㄹ",
-      "pw": "ㅁㄴㅇㄹ",
-      "confirm": "ㅁㄴㅇㄹ",
-      "nickname": "ㅁㄴㅇㄹ"
-    },
-    {
-      "id": "ㄴㅇㄹ",
-      "pw": "ㄴㄹㄴㅇ",
-      "confirm": "ㄴㅇㄹ",
-      "nickname": "ㄴㅇㄹ"
+      "qiuzId": 1,
+      "nickname": "수민",
+      "title": "“뭘까요?”",
+      "count": 7,
+      "category": 1,
+      "createdAt": "ㅁㅇㄴㄹ",
+      "guest": "true"
     }
   ]
 }
