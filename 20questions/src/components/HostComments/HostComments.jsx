@@ -1,29 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {__getContent} from "../../redux/modules/ContentList"
+import { useParams } from "react-router-dom";
+import { __getContent } from "../../redux/modules/ContentList";
+import { __PatchOX } from "../../redux/modules/PatchOX";
 
 const HostComments = () => {
-    const comments = useSelector((state) => state.getlist.data)
+    const comments = useSelector((state) => state.contentgetlist.data.data)
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(__getContent());
+        dispatch(__getContent(quizId));
     }, []);
 
+    const params = useParams();
+    const quizId = params.quizId
     return (
         <>
             <div>
                 <HostBody>
+                    {comments.length === 0 ? <div>등록된 질문이 없습니다.</div> : ''}
                     {comments.map((comment) => (
-                        <div key={comment.count} style={{'width': '100%'}}>
+                        <div key={comment.count} style={{ 'width': '100%' }}>
                             {comments.length === 0 ? '' :
                                 <div>
-                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
+                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button onClick={dispatch(__PatchOX({solved: true, quizId, questionId: comment.questionId }))}>O</button><button>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
                                 </div>}
                         </div>
                     ))}
                 </HostBody>
-                {comments.length === 0 ? <div>등록된 질문이 없습니다.</div> : ''}
             </div>
         </>
     );

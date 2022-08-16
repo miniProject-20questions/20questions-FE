@@ -2,17 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
 
 const initialState = {
-  todos: [],
+  data: [],
   isLoading: false, //
   error: null, //
 }
 
 
 export const __CommentPost = createAsyncThunk("contentpost/contentPost", async (payload, api) => {
-    console.log(payload.quizid)
+  const content = payload
+  console.log(content)
     try {
-    const data = await axios.post(`http://localhost:3001/question/:${payload.quizid}`, payload);
-   return api.fulfillWithValue(data.data);
+    const data = await axios.post(`http://juddyy.shop/api/question/18`, payload, {
+      headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmcyIiwiaWF0IjoxNjYwNjI3MjE1fQ.6GGpwi1FEAvOSLR981z0nFSAc9pACaxCS7HJy8zN4VY`}
+    });
+   return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);
   }
@@ -28,10 +31,11 @@ const contentSlice = createSlice({
       state.isLoading = true; //
     },
     [__CommentPost.fulfilled]: (state, action)=> {
-      state.posting = action.payload.content; 
+      state.data = action.payload; 
     },
     [__CommentPost.rejected] : (state, action) => {
       console.log(action); //생략가능부분
+      console.log(action.payload)
     }
   },
 });

@@ -8,11 +8,13 @@ const initialState = {
 }
 
 
-export const __getContent = createAsyncThunk("getlist/getList", async (payload, api) => {
-
+export const __getContent = createAsyncThunk("contentgetlist/contentgetList", async (payload, api) => {
+  console.log("모듈 갔니")
   try {
     const data = await axios.get(
-      "http://localhost:3001/data"
+      `http://juddyy.shop/api/question/${payload}`, {
+        headers: {authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmciLCJpYXQiOjE2NjA2MjQyMDR9.FI-gGbmq_FMrpVIY4jAknrzwedD6a2qlLEvFTG2MSEk`}
+      }
     );
    return api.fulfillWithValue(data.data);
   } catch(e) {
@@ -22,7 +24,7 @@ export const __getContent = createAsyncThunk("getlist/getList", async (payload, 
 
 
 const getContentSlice = createSlice({
-  name: "getlist",
+  name: "contentgetlist",
   initialState,
   reducers: {},
   extraReducers: {

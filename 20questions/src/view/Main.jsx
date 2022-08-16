@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Pagination from "../components/Pagination/Pagination"
-import PostingModal from "../components/PostingModal/PostingModal";
-import { __getList } from '../redux/modules/MainList'
+// import Pagination from "../components/Pagination/Pagination"
+import PostingModal from "../components/QuizPostingModal/PostingModal";
+import { __getList } from '../redux/modules/QuizList'
 
 function Main() {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const ingLists = useSelector((state) => state.getlist.data)
-  
+    
     useEffect(() => {
         dispatch(__getList());
     }, []);

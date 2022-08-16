@@ -20,7 +20,7 @@ function PostinModal() {
     } else if (category === 0) {
       alert('카테고리를 입력해주세요!')
     } else {
-    window.location.replace('/')
+    // window.location.replace('/')
     dispatch(__Posting({category, title, answer}));
   }}
  
