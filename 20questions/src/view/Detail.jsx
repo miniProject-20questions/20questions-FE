@@ -3,14 +3,14 @@ import styled from "styled-components";
 import GuestComments from "../components/GuestComments/GuestComments";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import HostComments from "../components/HostComments/HostComments";
-// import { useParams } from "react-router-dom";
+import HostComments from "../components/HostComments/HostComments";
 
 function Detail() {
   const token = localStorage.getItem("token");
   const param = useParams();
   const quizId = +param.quizId;
   const [quiz, setQuiz] = useState({});
+
   const readQuiz = async () => {
     await axios
       .get("http://juddyy.shop/api/quiz/" + quizId, {
@@ -25,6 +25,7 @@ function Detail() {
     month: "long",
     day: "numeric",
   });
+
   useEffect(() => {
     readQuiz();
   }, []);
@@ -41,23 +42,25 @@ function Detail() {
     <>
       <DetailBody>
         <TopContainer>
-          <Cetegoty>{quiz.category}</Cetegoty>
-          {quiz.guest ? "" : <DelBtn onClick={deleteHandler}>삭제</DelBtn>}
+
+          <Cetegoty>카테고리: {quiz.category}</Cetegoty>
+          {quiz.category === 7 ? <div style={{"color": "red", "margin": "auto"}}>정답은 {quiz.answer} 입니다!</div>: ''}
+          <DelBtn onClick={deleteHandler}>삭제</DelBtn>
+
         </TopContainer>
 
         <Quiz>{quiz.title}</Quiz>
         <Alse>
           <div>{writeDate}</div>
           <div>
-            ({quiz.count}/20)
-            <span style={{ marginleft: "15px", fontweight: "bold" }}>
+            댓글개수({quiz.count}/20)
+            <span style={{ marginleft: "15px"}}>
               작성자:{quiz.nickname}
             </span>
           </div>
         </Alse>
       </DetailBody>
-      <GuestComments />
-      {/* {NowId === HostId ? <HostComments/> : <GuestComments />} */}
+      {quiz.guest === false ? <HostComments/> : <GuestComments category={quiz.category} answer={quiz.answer} />}
     </>
   );
 }
@@ -79,8 +82,9 @@ const DetailBody = styled.div`
 `;
 
 const TopContainer = styled.div`
-  width: 50%;
-  flex-direction: column;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
 `;
 const Cetegoty = styled.h4`
   height: 25px;
@@ -89,6 +93,8 @@ const Cetegoty = styled.h4`
 `;
 const DelBtn = styled.button`
   display: flex;
+  margin: auto 0 auto auto;
+  flex-direction: row;
 `;
 
 const Quiz = styled.div`
@@ -110,4 +116,7 @@ const Alse = styled.div`
   display: flex;
   margin: auto;
   justify-content: space-between;
+  span {
+    margin-left: 10px;
+  }
 `;

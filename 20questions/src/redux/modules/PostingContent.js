@@ -7,25 +7,20 @@ const initialState = {
   error: null, //
 };
 
-export const __CommentPost = createAsyncThunk(
-  "contentpost/contentPost",
-  async (payload, api) => {
-    const content = payload;
-    console.log(content);
+const token = localStorage.getItem("token");
+
+export const __CommentPost = createAsyncThunk("contentpost/contentPost", async (payload, api) => {
+  const quizId = +payload.quizId
     try {
-      const data = await axios.post(
-        `http://juddyy.shop/api/question/18`,
-        payload,
-        {
-          headers: {
-            authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmcyIiwiaWF0IjoxNjYwNjI3MjE1fQ.6GGpwi1FEAvOSLR981z0nFSAc9pACaxCS7HJy8zN4VY`,
-          },
-        }
-      );
-      return api.fulfillWithValue(data.data.result);
-    } catch (e) {
-      return api.rejectWithValue(e);
-    }
+    const data = await axios.post(`http://juddyy.shop/api/question/${quizId}`, {content:payload.content}, {
+      headers: {
+        authorization: `BEAVER ${token}`
+      },
+    });
+   return api.fulfillWithValue(data.data.result);
+  } catch(e) {
+  return api.rejectWithValue(e);
+
   }
 );
 

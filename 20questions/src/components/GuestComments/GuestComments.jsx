@@ -2,32 +2,66 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { __CommentPost } from "../../redux/modules/PostingContent";
-import { __getContent } from "../../redux/modules/ContentList";
-import { __PatchCategory } from "../../redux/modules/PatchCategory";
+
+import { __CommentPost } from "../../redux/modules/PostingContent"
+import { __getContent } from "../../redux/modules/ContentList"
+import { __PatchCategory } from "../../redux/modules/PatchCategory"
 
 import styled from "styled-components";
 
-const GuestComments = () => {
-  const params = useParams();
-  const quizId = params.quizId;
+const GuestComments = (props) => {
+    const params = useParams();
+    const quizId = params.quizId
 
-  const comments = useSelector((state) => state.contentgetlist.data.data);
-  const dispatch = useDispatch();
+    const comments = useSelector((state) => state.contentgetlist.data.data)
+    const dispatch = useDispatch();
 
-  const [view, setView] = useState(true);
+    const [content, setContent] = useState("");
 
-  const [content, setContent] = useState("");
+    const onclickHandler = () => {
+        if (content === '') {
+            alert('질문이나 정답을 입력해주세요!')
+        } else if (props.answer === content) {
+            alert("정답입니다!")
+            dispatch(__CommentPost({ content, quizId }))
+            dispatch(__PatchCategory({ category: 7, quizId }))
+            window.location.replace(`/detail/${quizId}`)
+        } else {
+            dispatch(__CommentPost({ content, quizId }))
+            alert('질문이 등록되었습니다!')
+            window.location.replace(`/detail/${quizId}`)
+        }
+    }
 
-  const onclickHandler = () => {
-    content === ""
-      ? alert("질문이나 정답을 입력해주세요!")
-      : dispatch(__CommentPost({ content }));
-    dispatch(__getContent(quizId));
-    // answer === content ?
-    // dispatch(__PatchCategory({category: +7, quizId})) :
-    alert("질문이 등록되었습니다!");
-  };
+    useEffect(() => {
+        dispatch(__getContent(quizId))
+    }, []);
+
+    return (
+        <>
+            <div>
+                <GuestBody>
+                    {props.category === 7 ? '' : <div>
+                        {comments?.length <= 19 && props.category !== 7 ? <div><input style={{"textAlign": "center"}} placeholder="발표자가 O/X를 선택하지 않았다면, 질문 할 수 없습니다." onChange={(e) => setContent(e.target.value)}></input><button onClick={onclickHandler}>질문하기</button></div> : ''}
+                    </div>}
+                    {comments?.map((comment) => (
+                        <GuestList key={comment.count}>
+                            {comment.solved === null ?
+                                <div>
+                                    <div><p>{comment.content}</p>{props.category === 7 ? '' : <OXP>출제자가 O/X를 선택하지 않았습니다.</OXP>}</div>
+                                </div> :
+                                <div>
+                                    <p>{comment.content}</p>{comment.solved === false ?
+                                        <ListBack>X</ListBack> :
+                                        <ListBack>O</ListBack>}</div>}
+                        </GuestList>
+                    ))}
+                </GuestBody>
+            </div>
+        </>
+    );
+};
+
 
   useEffect(() => {
     dispatch(__getContent(quizId));

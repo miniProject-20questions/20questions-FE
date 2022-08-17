@@ -17,8 +17,9 @@ function LoginLayout() {
       [name]: value,
     });
   };
+  
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate();
   const login = (e) => {
     // e.preventDefault();
     axios.post("http://juddyy.shop/api/auth/signin", user).then((res) => {
