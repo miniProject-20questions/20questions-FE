@@ -20,6 +20,11 @@ export const __PatchCategory = createAsyncThunk("patchcategory/patchCategory", a
     });
    return api.fulfillWithValue(data.data.result);
   } catch(e) {
+    if (e.response.data === "NOT_FOUND_QUIZ") {
+      alert("존재하지 않는 퀴즈입니다.");
+    } else if (e.response.data === "BAD_REQUEST") {
+      alert("입력값을 확인해주세요.")
+    }
   return api.rejectWithValue(e);
   }
 });

@@ -20,6 +20,9 @@ export const __Posting = createAsyncThunk(
       });
       return api.fulfillWithValue(data.data.result);
     } catch (e) {
+      if (e.response.data === "BAD_REQUEST") {
+        alert("입력값을 확인해주세요.");
+      }
       return api.rejectWithValue(e);
     }
   }
