@@ -8,10 +8,8 @@ import { __getList } from "../redux/modules/QuizList";
 
 function Main() {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const ingLists = useSelector((state) => state.getlist.data);
-  console.log(ingLists);
 
   useEffect(() => {
     dispatch(__getList());

@@ -55,13 +55,13 @@ function JoinLayout() {
   //   });
   // };
 
-  const pwCofirm = () => {
-    if (user.password === user.confirm) {
-      setPwcheck(true);
-    } else {
-      setPwcheck(false);
-    }
-  };
+  // const pwCofirm = () => {
+  //   if (user.password === user.confirm) {
+  //     setPwcheck(true);
+  //   } else {
+  //     setPwcheck(false);
+  //   }
+  // };
 
   const nickCheck = (e) => {
     const { value } = e.target;
@@ -70,7 +70,7 @@ function JoinLayout() {
       nickname: value,
     });
 
-    if (user.nickname.length >= 2 && user.nickname.length <= 8) {
+    if (user.nickname.length >= 1 && user.nickname.length <= 8) {
       setNickcheck(true);
     } else {
       setNickcheck(false);
@@ -102,10 +102,14 @@ function JoinLayout() {
     axios
       .post("http://juddyy.shop/api/auth/idCheck", { id: user.id })
       .then((res) => {
+        console.log(res);
         if (res.data === "SUCCES") {
           alert("사용가능한 아이디입니다.");
-        } else {
-          alert("이미 존재하는 아이디입니다.");
+        }
+      })
+      .catch((error) => {
+        if (error.response.data === "EXIST_ID") {
+          alert("이미 사용중인 아이디입니다.");
         }
       });
   };

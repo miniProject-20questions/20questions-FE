@@ -5,10 +5,11 @@ const initialState = {
   isLoading: false, //
   error: null, //
 };
-const token = localStorage.getItem("token");
+
 export const __Posting = createAsyncThunk(
   "posting/Posting",
   async (payload, api) => {
+    const token = localStorage.getItem("token");
     try {
       const data = await axios.post("http://juddyy.shop/api/quiz", payload, {
         headers: {

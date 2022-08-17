@@ -7,7 +7,6 @@ const initialState = {
   error: null, //
 };
 
-const token = localStorage.getItem("token");
 export const __CommentPost = createAsyncThunk(
   "contentpost/contentPost",
   async (payload, api) => {
@@ -18,7 +17,9 @@ export const __CommentPost = createAsyncThunk(
         `http://juddyy.shop/api/question/18`,
         payload,
         {
-          headers: { Authorization: `BEAVER ${token}` },
+          headers: {
+            authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmcyIiwiaWF0IjoxNjYwNjI3MjE1fQ.6GGpwi1FEAvOSLR981z0nFSAc9pACaxCS7HJy8zN4VY`,
+          },
         }
       );
       return api.fulfillWithValue(data.data.result);
