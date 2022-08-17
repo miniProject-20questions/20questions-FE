@@ -16,7 +16,7 @@ const GuestComments = (props) => {
   const dispatch = useDispatch();
 
   const [content, setContent] = useState("");
-
+  
   const onclickHandler = () => {
     if (content === "") {
       alert("질문이나 정답을 입력해주세요!");
@@ -27,7 +27,6 @@ const GuestComments = (props) => {
       window.location.replace(`/detail/${quizId}`);
     } else {
       dispatch(__CommentPost({ content, quizId }));
-      alert("질문이 등록되었습니다!");
       window.location.replace(`/detail/${quizId}`);
     }
   };
@@ -35,6 +34,7 @@ const GuestComments = (props) => {
     dispatch(__getContent(quizId));
     if(comments?.length === 20) {
       dispatch(__PatchCategory({ category: 7, quizId }));
+      window.location.replace(`/detail/${quizId}`);
     }
   }, []);
 
