@@ -36,17 +36,20 @@ function Detail() {
         headers: { Authorization: `BEAVER ${token}` },
       })
       .then((res) => alert("삭제되었습니다."));
-    // nav(-1);
   };
   return (
     <>
       <DetailBody>
         <TopContainer>
-
           <Cetegoty>카테고리: {quiz.category}</Cetegoty>
-          {quiz.category === 7 ? <div style={{"color": "red", "margin": "auto"}}>정답은 {quiz.answer} 입니다!</div>: ''}
-          <DelBtn onClick={deleteHandler}>삭제</DelBtn>
-
+          {quiz.category === 7 ? (
+            <div style={{ color: "red", margin: "auto" }}>
+              정답은 {quiz.answer} 입니다!
+            </div>
+          ) : (
+            ""
+          )}
+          {quiz.guest ? "" : <DelBtn onClick={deleteHandler}>삭제</DelBtn>}
         </TopContainer>
 
         <Quiz>{quiz.title}</Quiz>
@@ -54,13 +57,15 @@ function Detail() {
           <div>{writeDate}</div>
           <div>
             댓글개수({quiz.count}/20)
-            <span style={{ marginleft: "15px"}}>
-              작성자:{quiz.nickname}
-            </span>
+            <span style={{ marginleft: "15px" }}>작성자:{quiz.nickname}</span>
           </div>
         </Alse>
       </DetailBody>
-      {quiz.guest === false ? <HostComments/> : <GuestComments category={quiz.category} answer={quiz.answer} />}
+      {quiz.guest === false ? (
+        <HostComments />
+      ) : (
+        <GuestComments category={quiz.category} answer={quiz.answer} />
+      )}
     </>
   );
 }
@@ -92,9 +97,12 @@ const Cetegoty = styled.h4`
   margin: 3px;
 `;
 const DelBtn = styled.button`
+  font-weight: 700;
   display: flex;
   margin: auto 0 auto auto;
   flex-direction: row;
+  background-color: #ffb70080;
+  border-radius: 5px;
 `;
 
 const Quiz = styled.div`
