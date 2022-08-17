@@ -5,7 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./redux/storeConfig";
+import store from "./redux/config/storeConfig";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <div>

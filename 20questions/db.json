@@ -1,0 +1,21 @@
+{
+  "user": [
+    {
+      "id": "yeun38",
+      "nickname": "영은",
+      "password": "yeun1234",
+      "confirm": "yeun1234"
+    }
+  ],
+  "quiz": [
+    {
+      "qiuzId": 1,
+      "nickname": "수민",
+      "title": "“뭘까요?”",
+      "count": 7,
+      "category": 1,
+      "createdAt": "ㅁㅇㄴㄹ",
+      "guest": "true"
+    }
+  ]
+}
