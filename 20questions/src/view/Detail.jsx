@@ -10,7 +10,7 @@ function Detail() {
   const param = useParams();
   const quizId = +param.quizId;
   const [quiz, setQuiz] = useState({});
-  console.log(quiz)
+
   const readQuiz = async () => {
     await axios
       .get("http://juddyy.shop/api/quiz/" + quizId, {
@@ -42,7 +42,7 @@ function Detail() {
       <DetailBody>
         <TopContainer>
           <Cetegoty>카테고리: {quiz.category}</Cetegoty>
-          {}
+          {quiz.category === 7 ? <div style={{"color": "red", "margin": "auto"}}>정답은 {quiz.answer} 입니다!</div>: ''}
           <DelBtn onClick={deleteHandler}>삭제</DelBtn>
         </TopContainer>
 
@@ -51,13 +51,13 @@ function Detail() {
           <div>{writeDate}</div>
           <div>
             댓글개수({quiz.count}/20)
-            <span style={{ marginleft: "15px", fontweight: "bold" }}>
+            <span style={{ marginleft: "15px"}}>
               작성자:{quiz.nickname}
             </span>
           </div>
         </Alse>
       </DetailBody>
-      {quiz.guest === true ? <HostComments/> : <GuestComments category={quiz.category} answer={quiz.answer} />}
+      {quiz.guest === false ? <HostComments/> : <GuestComments category={quiz.category} answer={quiz.answer} />}
     </>
   );
 }

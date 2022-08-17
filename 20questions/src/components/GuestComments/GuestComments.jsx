@@ -16,8 +16,6 @@ const GuestComments = (props) => {
     const dispatch = useDispatch();
 
     const [content, setContent] = useState("");
-    
-    const [view, setView] = useState(true);
 
     const onclickHandler = () => {
         if (content === '') {
@@ -25,7 +23,7 @@ const GuestComments = (props) => {
         } else if (props.answer === content) {
             alert("정답입니다!")
             dispatch(__CommentPost({ content, quizId }))
-            dispatch(__PatchCategory({category:7, quizId}))
+            dispatch(__PatchCategory({ category: 7, quizId }))
             window.location.replace(`/detail/${quizId}`)
         } else {
             dispatch(__CommentPost({ content, quizId }))
@@ -42,14 +40,14 @@ const GuestComments = (props) => {
         <>
             <div>
                 <GuestBody>
-                    <div>
-                        {comments?.length <= 19 && props.category !== 7 && view === true ? <div><input onChange={(e) => setContent(e.target.value)}></input><button onClick={onclickHandler}>질문하기</button></div> : ''}
-                    </div>
+                    {props.category === 7 ? '' : <div>
+                        {comments?.length <= 19 && props.category !== 7 ? <div><input style={{"textAlign": "center"}} placeholder="발표자가 O/X를 선택하지 않았다면, 질문 할 수 없습니다." onChange={(e) => setContent(e.target.value)}></input><button onClick={onclickHandler}>질문하기</button></div> : ''}
+                    </div>}
                     {comments?.map((comment) => (
                         <GuestList key={comment.count}>
                             {comment.solved === null ?
                                 <div>
-                                    <div><p>{comment.content}</p>{props.category === 7 ? '': <OXP>출제자가 O/X를 선택하지 않았습니다.</OXP>}</div>
+                                    <div><p>{comment.content}</p>{props.category === 7 ? '' : <OXP>출제자가 O/X를 선택하지 않았습니다.</OXP>}</div>
                                 </div> :
                                 <div>
                                     <p>{comment.content}</p>{comment.solved === false ?
