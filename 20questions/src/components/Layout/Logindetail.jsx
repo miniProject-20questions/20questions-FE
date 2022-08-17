@@ -18,7 +18,7 @@ function LoginLayout() {
     });
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const login = (e) => {
     // e.preventDefault();
     axios.post("http://juddyy.shop/api/auth/signin", user).then((res) => {
@@ -26,7 +26,7 @@ function LoginLayout() {
         localStorage.setItem("token", res.data.token);
         console.log(res);
         alert("로그인완료");
-        navigate("/");
+        window.location.replace("/");
       } else alert("아이디가 존재하지 않습니다.");
     });
   };

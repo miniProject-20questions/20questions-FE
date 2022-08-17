@@ -18,6 +18,7 @@ function Detail() {
       })
       .then((res) => setQuiz(res.data));
   };
+  console.log(quiz.guest);
 
   const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -27,6 +28,7 @@ function Detail() {
   useEffect(() => {
     readQuiz();
   }, []);
+
   const deleteHandler = async () => {
     await axios
       .delete("http://juddyy.shop/api/quiz/" + quizId, {
@@ -40,8 +42,7 @@ function Detail() {
       <DetailBody>
         <TopContainer>
           <Cetegoty>{quiz.category}</Cetegoty>
-          {}
-          <DelBtn onClick={deleteHandler}>삭제</DelBtn>
+          {quiz.guest ? "" : <DelBtn onClick={deleteHandler}>삭제</DelBtn>}
         </TopContainer>
 
         <Quiz>{quiz.title}</Quiz>

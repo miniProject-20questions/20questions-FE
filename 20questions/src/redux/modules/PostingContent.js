@@ -1,27 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios"
+import axios from "axios";
 
 const initialState = {
   data: [],
   isLoading: false, //
   error: null, //
-}
+};
 
-const token = localStorage.getItem("token");
-
-export const __CommentPost = createAsyncThunk("contentpost/contentPost", async (payload, api) => {
+export const __CommentPost = createAsyncThunk(
+  "contentpost/contentPost",
+  async (payload, api) => {
+    const content = payload;
+    console.log(content);
     try {
-    const data = await axios.post(`http://juddyy.shop/api/question/22`, payload, {
-      headers: {
-        authorization: `BEAVER ${token}`
-      },
-    });
-   return api.fulfillWithValue(data.data.result);
-  } catch(e) {
-  return api.rejectWithValue(e);
+      const data = await axios.post(
+        `http://juddyy.shop/api/question/18`,
+        payload,
+        {
+          headers: {
+            authorization: `BEAVER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImpvbmcyIiwiaWF0IjoxNjYwNjI3MjE1fQ.6GGpwi1FEAvOSLR981z0nFSAc9pACaxCS7HJy8zN4VY`,
+          },
+        }
+      );
+      return api.fulfillWithValue(data.data.result);
+    } catch (e) {
+      return api.rejectWithValue(e);
+    }
   }
-});
-
+);
 
 const contentSlice = createSlice({
   name: "contentpost",
@@ -31,15 +37,15 @@ const contentSlice = createSlice({
     [__CommentPost.pending]: (state) => {
       state.isLoading = true; //
     },
-    [__CommentPost.fulfilled]: (state, action)=> {
-      state.data = action.payload; 
+    [__CommentPost.fulfilled]: (state, action) => {
+      state.data = action.payload;
     },
-    [__CommentPost.rejected] : (state, action) => {
+    [__CommentPost.rejected]: (state, action) => {
       console.log(action); //생략가능부분
-      console.log(action.payload)
-    }
+      console.log(action.payload);
+    },
   },
 });
 
-export const { } = contentSlice.actions;
+export const {} = contentSlice.actions;
 export default contentSlice.reducer;
