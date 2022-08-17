@@ -5,7 +5,6 @@ import styled from "styled-components";
 // import Pagination from "../components/Pagination/Pagination"
 import PostingModal from "../components/QuizPostingModal/PostingModal";
 import { __getList } from "../redux/modules/QuizList";
-import axios from "axios";
 
 function Main() {
   const navigate = useNavigate();
@@ -34,7 +33,6 @@ function Main() {
 
   let [postingmodal, setPostingModal] = useState(false);
   const token = localStorage.getItem("token");
-  console.log(token);
 
   return (
     <MainBox>

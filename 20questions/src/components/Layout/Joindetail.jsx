@@ -73,10 +73,30 @@ function JoinLayout() {
   const navigate = useNavigate();
   const Join = (e) => {
     if (user.password === user.confirm && user.nickname.length >= 2) {
-      axios.post("http://juddyy.shop/api/auth/signup", user).then((res) => {
-        console.log(res);
-        alert("가입완료");
-      });
+      axios
+        .post("http://juddyy.shop/api/auth/signup", user)
+        .then((res) => {
+          if (res.data === "SUCCES");
+          alert("가입완료");
+        })
+        .catch((error) => {
+          const type = error.response.data;
+          switch (type) {
+            case "EXIST_NICK":
+              alert("이미 사용중인 닉네임입니다.");
+              break;
+            case "BAD_VALIDATION_ID":
+              alert("ID 조건이 맞지 않습니다.");
+              break;
+            case "BAD_VALIDATION_PW":
+              alert("PW 조건이 맞지 않습니다.");
+              break;
+            case "BAD_VALIDATION_NICK":
+              alert("NICK 조건이 맞지 않습니다.");
+              break;
+            default:
+          }
+        });
       navigate("/login");
       setUser({
         id: "",
@@ -103,8 +123,15 @@ function JoinLayout() {
         }
       })
       .catch((error) => {
-        if (error.response.data === "EXIST_ID") {
-          alert("이미 사용중인 아이디입니다.");
+        const type = error.response.data;
+        switch (type) {
+          case "EXIST_ID":
+            alert("이미 사용중인 아이디입니다.");
+            break;
+          case "BAD_VALIDATION_ID":
+            alert("ID 조건이 맞지 않습니다.");
+            break;
+          default:
         }
       });
   };

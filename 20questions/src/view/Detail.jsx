@@ -4,6 +4,7 @@ import GuestComments from "../components/GuestComments/GuestComments";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import HostComments from "../components/HostComments/HostComments";
+import { type } from "@testing-library/user-event/dist/type";
 
 function Detail() {
   const token = localStorage.getItem("token");
@@ -16,9 +17,13 @@ function Detail() {
       .get("http://juddyy.shop/api/quiz/" + quizId, {
         headers: { Authorization: `BEAVER ${token}` },
       })
-      .then((res) => setQuiz(res.data));
+      .then((res) => setQuiz(res.data))
+      .catch((error) => {
+        if (error.response.data === "NOT_FOUND_QUIZ") {
+          alert("존재하지 않는 퀴즈입니다.");
+        }
+      });
   };
-  console.log(quiz.guest);
 
   const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -36,6 +41,7 @@ function Detail() {
         headers: { Authorization: `BEAVER ${token}` },
       })
       .then((res) => alert("삭제되었습니다."));
+    window.location.replace("/");
   };
   return (
     <>

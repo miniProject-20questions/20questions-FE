@@ -17,19 +17,30 @@ function LoginLayout() {
       [name]: value,
     });
   };
-  
-  const navigate = useNavigate();
 
   const login = (e) => {
     // e.preventDefault();
-    axios.post("http://juddyy.shop/api/auth/signin", user).then((res) => {
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        console.log(res);
-        alert("로그인완료");
-        window.location.replace("/");
-      } else alert("아이디가 존재하지 않습니다.");
-    });
+    axios
+      .post("http://juddyy.shop/api/auth/signin", user)
+      .then((res) => {
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+          alert("로그인완료");
+          window.location.replace("/");
+        } else alert("아이디가 존재하지 않습니다.");
+      })
+      .catch((error) => {
+        const type = error.response.data;
+        switch (type) {
+          case "DONE_LOGIN":
+            alert("이미 로그인되어있습니다.");
+            break;
+          case "BAD_VALIDATION":
+            alert("ID나 PW가 틀렸습니다.");
+            break;
+          default:
+        }
+      });
   };
   return (
     <Layout>
