@@ -25,6 +25,19 @@ export const __CommentPost = createAsyncThunk(
       );
       return api.fulfillWithValue(data.data.result);
     } catch (e) {
+      if (e.response.data === "BAD_REQUEST") {
+        alert("입력값을 확인해주세요.");
+      } else if(e.response.data === "NOT_FOUND_QUIZ") {
+        alert("존재하지 않는 퀴즈입니다.")
+      } else if(e.response.data === "UNAUTHORIZED_USER") {
+        alert("퀴즈 작성자는 질문을 등록할 수 없습니다.")
+      } else if (e.response.data === "FORBIDDEN_END") {
+        alert("완료된 퀴즈입니다.")
+      } else if (e.response.data === "FORBIDDEN_SOL") {
+        alert("퀴즈 작성자가 아직 OX 체크를 하지 않았습니다.")
+      } else if (e.response.data === "FORBIDDEN_20") {
+        alert("질문 20개가 등록되어 스무고개 퀴즈가 끝났습니다.")
+      }
       return api.rejectWithValue(e);
     }
   }

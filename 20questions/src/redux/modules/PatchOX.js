@@ -20,6 +20,15 @@ export const __PatchOX = createAsyncThunk("patchox/patchOX", async (payload, api
     });
    return api.fulfillWithValue(data.data.result);
   } catch(e) {
+    if (e.response.data === "BAD_REQUEST") {
+      alert("입력값을 확인해주세요.");
+    } else if (e.response.data === "UNAUTHORIZED_USER") {
+      alert("퀴즈 작성자만 질문 OX 체크를 할 수 있습니다.");
+    } else if (e.response.data === "NOT_FOUND_QUE") {
+      alert("존재하지 않는 질문입니다.");
+    } else if (e.response.data === "FORBIDDEN_RE_SOL") {
+      alert("이미 OX 체크 된 질문입니다.");
+    }
   return api.rejectWithValue(e);
   }
 });
