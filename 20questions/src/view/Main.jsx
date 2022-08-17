@@ -20,8 +20,9 @@ function Main() {
   // const [total, setTotal] = useState(0);
   // const num = 0;
   const [category, setCategory] = useState(0);
+
   const handleChange = (e) => {
-    setCategory(e.target.value);
+    setCategory(+e.target.value);
   };
 
   // const indexOfLastPost = page * limit;
@@ -45,7 +46,7 @@ function Main() {
           <option value={4}>음악</option>
           <option value={5}>가전제품</option>
           <option value={6}>기타</option>
-          <option value={7}>완료된 문제</option>
+          <option value={7}>종료된 퀴즈</option>
         </select>
       </Select>
       <IngList>
@@ -55,7 +56,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  console.log("이동되나?");
+                  alert("회원가입이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
@@ -66,19 +67,19 @@ function Main() {
                   height: "100px",
                   backgroundImage: `url(${
                     count.category === 1
-                      ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660"
+                      ? "https://user-images.githubusercontent.com/109029407/185198692-8285dbc7-415d-40af-938b-6a6bca4de25e.png"
                       : count.category === 2
-                      ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
+                      ? "https://user-images.githubusercontent.com/109029407/185198705-2bb6809b-f530-4682-b4ba-0e2cbf20d2b4.png"
                       : count.category === 3
-                      ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198714-9b72eb1c-3850-4923-bd8c-e9e336273fa9.png"
                       : count.category === 4
-                      ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198720-880b3306-5ddd-4179-a48f-973089988619.png"
                       : count.category === 5
-                      ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198725-f344f533-7252-45cf-9ce1-f907f315b64f.png"
                       : count.category === 6
-                      ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198740-a569e461-44a8-4515-ba43-eb558a231111.png"
                       : count.category === 7
-                      ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198825-d6a7e06d-d6bf-49aa-a836-e614a8e524da.png"
                       : ""
                   })`,
                 }}
@@ -95,7 +96,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  console.log("이동되나?");
+                  alert("회원가입이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
@@ -106,19 +107,19 @@ function Main() {
                   height: "100px",
                   backgroundImage: `url(${
                     count.category === 1
-                      ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660"
+                      ? "https://user-images.githubusercontent.com/109029407/185198692-8285dbc7-415d-40af-938b-6a6bca4de25e.png"
                       : count.category === 2
-                      ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
+                      ? "https://user-images.githubusercontent.com/109029407/185198705-2bb6809b-f530-4682-b4ba-0e2cbf20d2b4.png"
                       : count.category === 3
-                      ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198714-9b72eb1c-3850-4923-bd8c-e9e336273fa9.png"
                       : count.category === 4
-                      ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198720-880b3306-5ddd-4179-a48f-973089988619.png"
                       : count.category === 5
-                      ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198725-f344f533-7252-45cf-9ce1-f907f315b64f.png"
                       : count.category === 6
-                      ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198740-a569e461-44a8-4515-ba43-eb558a231111.png"
                       : count.category === 7
-                      ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0"
+                      ? "https://user-images.githubusercontent.com/109029407/185198825-d6a7e06d-d6bf-49aa-a836-e614a8e524da.png"
                       : ""
                   })`,
                 }}
@@ -137,7 +138,10 @@ function Main() {
       </IngList>
       <PostBtn
         onClick={() => {
-          setPostingModal(true);
+          if (token === null) {
+            alert("회원가입이 필요합니다.");
+            return navigate("/");
+          } else return setPostingModal(true);
         }}
       >
         글쓰기

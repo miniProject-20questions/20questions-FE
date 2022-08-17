@@ -12,7 +12,7 @@ export const __getList = createAsyncThunk(
   "getlist/getList",
   async (payload, api) => {
     try {
-      const data = await axios.get("http://juddyy.shop/api/quiz");
+      const data = await axios.get("//juddyy.shop/api/quiz");
 
       return api.fulfillWithValue(data.data.result);
     } catch (e) {

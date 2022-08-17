@@ -49,8 +49,8 @@ function Detail() {
         <TopContainer>
           <Cetegoty>카테고리: {quiz.category}</Cetegoty>
           {quiz.category === 7 ? (
-            <div style={{ color: "red", margin: "auto" }}>
-              정답은 {quiz.answer} 입니다!
+            <div style={{ color: "red", margin: "auto", fontSize: "20px" }}>
+              정답은 <span style={{"fontWeight": "bold"}}>{quiz.answer}</span> 입니다!
             </div>
           ) : (
             ""
@@ -68,7 +68,7 @@ function Detail() {
         </Alse>
       </DetailBody>
       {quiz.guest === false ? (
-        <HostComments />
+        <HostComments category={quiz.category} />
       ) : (
         <GuestComments category={quiz.category} answer={quiz.answer} />
       )}
