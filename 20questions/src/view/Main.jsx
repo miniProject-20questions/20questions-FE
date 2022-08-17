@@ -55,7 +55,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  console.log("이동되나?");
+                  alert("회원가입이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
@@ -95,7 +95,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  console.log("이동되나?");
+                  alert("회원가입이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
