@@ -5,7 +5,6 @@ import styled from "styled-components";
 // import Pagination from "../components/Pagination/Pagination"
 import PostingModal from "../components/QuizPostingModal/PostingModal";
 import { __getList } from "../redux/modules/QuizList";
-import axios from "axios";
 
 function Main() {
   const navigate = useNavigate();
@@ -34,7 +33,6 @@ function Main() {
 
   let [postingmodal, setPostingModal] = useState(false);
   const token = localStorage.getItem("token");
-  console.log(token);
 
   return (
     <MainBox>
@@ -57,7 +55,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  console.log("이동되나?");
+                  alert("회원가입이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
@@ -97,7 +95,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  console.log("이동되나?");
+                  alert("회원가입이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
