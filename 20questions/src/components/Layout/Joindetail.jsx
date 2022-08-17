@@ -15,7 +15,6 @@ function JoinLayout() {
   //state
   const [idvalidate, setIdvalidate] = useState(false);
   const [pwvalidate, setPwvalidate] = useState(false);
-  const [pwcheck, setPwcheck] = useState(false);
   const [nickcheck, setNickcheck] = useState(false);
   // validate
   const IdChange = (e) => {
@@ -47,21 +46,13 @@ function JoinLayout() {
     }
   };
 
-  // const onChange = (e) => {
-  //   const { value } = e.target;
-  //   setUser({
-  //     ...user,
-  //     confirm: value,
-  //   });
-  // };
-
-  // const pwCofirm = () => {
-  //   if (user.password === user.confirm) {
-  //     setPwcheck(true);
-  //   } else {
-  //     setPwcheck(false);
-  //   }
-  // };
+  const CofirmChange = (e) => {
+    const { value } = e.target;
+    setUser({
+      ...user,
+      confirm: value,
+    });
+  };
 
   const nickCheck = (e) => {
     const { value } = e.target;
@@ -69,8 +60,7 @@ function JoinLayout() {
       ...user,
       nickname: value,
     });
-
-    if (user.nickname.length >= 1 && user.nickname.length <= 8) {
+    if (user.nickname.length >= 2 && user.nickname.length <= 8) {
       setNickcheck(true);
     } else {
       setNickcheck(false);
@@ -79,9 +69,10 @@ function JoinLayout() {
   console.log(user);
 
   //가입하기
+
   const navigate = useNavigate();
   const Join = (e) => {
-    if (user.password === user.confirm) {
+    if (user.password === user.confirm && user.nickname.length >= 2) {
       axios.post("http://juddyy.shop/api/auth/signup", user).then((res) => {
         console.log(res);
         alert("가입완료");
@@ -93,8 +84,12 @@ function JoinLayout() {
         confirm: "",
         nickname: "",
       });
-    } else {
+    } else if (user.password !== user.confirm) {
       alert("비밀번호가 일치하지 않습니다.");
+    } else if (user.nickname.length < 2) {
+      alert("닉네임의 글자수가 맞지 않습니다.");
+    } else {
+      alert("값을 입력해주세요");
     }
   };
 
@@ -152,26 +147,18 @@ function JoinLayout() {
           <InputInfo
             placeholder=" 비밀번호 재입력"
             name="confirm"
+            onChange={CofirmChange}
             value={user.confirm.result}
             maxLength="9"
           />
-          {pwcheck ? (
-            <InfoP style={{ color: "blue" }}>비밀번호가 일치합니다.</InfoP>
-          ) : (
-            <InfoP>비밀번호를 다시 확인해주세요.</InfoP>
-          )}
+
           <InputInfo
-            placeholder=" 닉네임"
+            placeholder="닉네임은 2-6자 입력"
             onChange={nickCheck}
             name="nickname"
             maxLength="8"
             value={user.nickname.result}
           />
-          {nickcheck ? (
-            <InfoP style={{ color: "blue" }}>너무 잘 어울려요!</InfoP>
-          ) : (
-            <InfoP>2-8자로 입력해주세요</InfoP>
-          )}
 
           <ButtonArea>
             <ButtonFull onClick={Join}>회원가입</ButtonFull>
