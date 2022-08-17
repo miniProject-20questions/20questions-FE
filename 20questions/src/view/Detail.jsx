@@ -18,6 +18,7 @@ function Detail() {
       })
       .then((res) => setQuiz(res.data));
   };
+  console.log(quiz.guest);
 
   const writeDate = new Date(quiz.createdAt).toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -41,9 +42,11 @@ function Detail() {
     <>
       <DetailBody>
         <TopContainer>
+
           <Cetegoty>카테고리: {quiz.category}</Cetegoty>
           {quiz.category === 7 ? <div style={{"color": "red", "margin": "auto"}}>정답은 {quiz.answer} 입니다!</div>: ''}
           <DelBtn onClick={deleteHandler}>삭제</DelBtn>
+
         </TopContainer>
 
         <Quiz>{quiz.title}</Quiz>
