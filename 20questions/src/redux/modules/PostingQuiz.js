@@ -5,7 +5,9 @@ const initialState = {
   isLoading: false, //
   error: null, //
 };
+
 const token = localStorage.getItem("token");
+
 export const __Posting = createAsyncThunk(
   "posting/Posting",
   async (payload, api) => {

@@ -18,6 +18,7 @@ const HostComments = () => {
     
     const onclicO = (e) => {
         dispatch(__PatchOX({solved: true, quizId, questionId:e.target.value}))
+        
     }
 
     const onclicX = (e) => {

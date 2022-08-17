@@ -4,14 +4,13 @@ import GuestComments from "../components/GuestComments/GuestComments";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import HostComments from "../components/HostComments/HostComments";
-// import { useParams } from "react-router-dom";
 
 function Detail() {
   const token = localStorage.getItem("token");
   const param = useParams();
   const quizId = +param.quizId;
   const [quiz, setQuiz] = useState({});
-
+  console.log(quiz)
   const readQuiz = async () => {
     await axios
       .get("http://juddyy.shop/api/quiz/" + quizId, {
@@ -25,9 +24,11 @@ function Detail() {
     month: "long",
     day: "numeric",
   });
+
   useEffect(() => {
     readQuiz();
   }, []);
+
   const deleteHandler = async () => {
     await axios
       .delete("http://juddyy.shop/api/quiz/" + quizId, {
@@ -40,7 +41,7 @@ function Detail() {
     <>
       <DetailBody>
         <TopContainer>
-          <Cetegoty>{quiz.category}</Cetegoty>
+          <Cetegoty>카테고리: {quiz.category}</Cetegoty>
           {}
           <DelBtn onClick={deleteHandler}>삭제</DelBtn>
         </TopContainer>
@@ -49,15 +50,15 @@ function Detail() {
         <Alse>
           <div>{writeDate}</div>
           <div>
-            ({quiz.count}/20)
+            댓글개수({quiz.count}/20)
             <span style={{ marginleft: "15px", fontweight: "bold" }}>
               작성자:{quiz.nickname}
             </span>
           </div>
         </Alse>
       </DetailBody>
-      <HostComments />
-      {/* <GuestComments /> */}
+      {/* <HostComments /> */}
+      <GuestComments category={quiz.category} answer={quiz.answer} />
       {/* {NowId === HostId ? <HostComments/> : <GuestComments />} */}
     </>
   );
@@ -80,8 +81,9 @@ const DetailBody = styled.div`
 `;
 
 const TopContainer = styled.div`
-  width: 50%;
-  flex-direction: column;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
 `;
 const Cetegoty = styled.h4`
   height: 25px;
@@ -90,6 +92,8 @@ const Cetegoty = styled.h4`
 `;
 const DelBtn = styled.button`
   display: flex;
+  margin: auto 0 auto auto;
+  flex-direction: row;
 `;
 
 const Quiz = styled.div`
@@ -111,4 +115,7 @@ const Alse = styled.div`
   display: flex;
   margin: auto;
   justify-content: space-between;
+  span {
+    margin-left: 10px;
+  }
 `;
