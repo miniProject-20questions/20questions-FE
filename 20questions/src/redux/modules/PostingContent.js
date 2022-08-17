@@ -9,18 +9,24 @@ const initialState = {
 
 const token = localStorage.getItem("token");
 
-export const __CommentPost = createAsyncThunk("contentpost/contentPost", async (payload, api) => {
-  const quizId = +payload.quizId
+export const __CommentPost = createAsyncThunk(
+  "contentpost/contentPost",
+  async (payload, api) => {
+    const quizId = +payload.quizId;
     try {
-    const data = await axios.post(`http://juddyy.shop/api/question/${quizId}`, {content:payload.content}, {
-      headers: {
-        authorization: `BEAVER ${token}`
-      },
-    });
-   return api.fulfillWithValue(data.data.result);
-  } catch(e) {
-  return api.rejectWithValue(e);
-
+      const data = await axios.post(
+        `http://juddyy.shop/api/question/${quizId}`,
+        { content: payload.content },
+        {
+          headers: {
+            authorization: `BEAVER ${token}`,
+          },
+        }
+      );
+      return api.fulfillWithValue(data.data.result);
+    } catch (e) {
+      return api.rejectWithValue(e);
+    }
   }
 );
 

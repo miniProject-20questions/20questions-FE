@@ -5,6 +5,7 @@ import styled from "styled-components";
 // import Pagination from "../components/Pagination/Pagination"
 import PostingModal from "../components/QuizPostingModal/PostingModal";
 import { __getList } from "../redux/modules/QuizList";
+import axios from "axios";
 
 function Main() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Main() {
   // const num = 0;
   const [category, setCategory] = useState(0);
   const handleChange = (e) => {
-    setCategory(e.target.value)
+    setCategory(e.target.value);
   };
 
   // const indexOfLastPost = page * limit;
@@ -32,6 +33,8 @@ function Main() {
   // );
 
   let [postingmodal, setPostingModal] = useState(false);
+  const token = localStorage.getItem("token");
+  console.log(token);
 
   return (
     <MainBox>
@@ -53,29 +56,33 @@ function Main() {
             <div
               key={count.quizId}
               onClick={() => {
-                navigate(`/detail/${count.quizId}`);
+                if (token === null) {
+                  console.log("이동되나?");
+                  return navigate("/");
+                } else return navigate(`/detail/${count.quizId}`);
               }}
             >
               <Img
                 style={{
                   width: "95%",
                   height: "100px",
-                  backgroundImage: `url(${count.category === 1
+                  backgroundImage: `url(${
+                    count.category === 1
                       ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660"
                       : count.category === 2
-                        ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
-                        : count.category === 3
-                          ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0"
-                          : count.category === 4
-                            ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0"
-                            : count.category === 5
-                              ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0"
-                              : count.category === 6
-                                ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0"
-                                : count.category === 7
-                                  ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0"
-                                  : ""
-                    })`,
+                      ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
+                      : count.category === 3
+                      ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0"
+                      : count.category === 4
+                      ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0"
+                      : count.category === 5
+                      ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0"
+                      : count.category === 6
+                      ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0"
+                      : count.category === 7
+                      ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0"
+                      : ""
+                  })`,
                 }}
               ></Img>
               <p style={{ fontWeight: "bold" }}>제목 {count.title}</p>
@@ -89,29 +96,33 @@ function Main() {
             <div
               key={count.quizId}
               onClick={() => {
-                navigate(`/detail/${count.quizId}`);
+                if (token === null) {
+                  console.log("이동되나?");
+                  return navigate("/");
+                } else return navigate(`/detail/${count.quizId}`);
               }}
             >
               <Img
                 style={{
                   width: "95%",
                   height: "100px",
-                  backgroundImage: `url(${count.category === 1
+                  backgroundImage: `url(${
+                    count.category === 1
                       ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660"
                       : count.category === 2
-                        ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
-                        : count.category === 3
-                          ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0"
-                          : count.category === 4
-                            ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0"
-                            : count.category === 5
-                              ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0"
-                              : count.category === 6
-                                ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0"
-                                : count.category === 7
-                                  ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0"
-                                  : ""
-                    })`,
+                      ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
+                      : count.category === 3
+                      ? "https://tse1.mm.bing.net/th?id=OIP.Cl-Mt1nq47N-IBw-mbxDdgHaEP&pid=Api&P=0"
+                      : count.category === 4
+                      ? "https://tse2.explicit.bing.net/th?id=OIP.yq0cA69DKC1ebkSlX8WLDQHaIb&pid=Api&P=0"
+                      : count.category === 5
+                      ? "https://tse4.mm.bing.net/th?id=OIP.8Bc2bWiC-Y1xYuW4T7RKLQHaGh&pid=Api&P=0"
+                      : count.category === 6
+                      ? "https://tse3.mm.bing.net/th?id=OIP.psf5KqaxgvcoMw0jkofWEwHaEK&pid=Api&P=0"
+                      : count.category === 7
+                      ? "https://tse1.mm.bing.net/th?id=OIP.lsS51m_5rahwebwTyqu2YQHaF_&pid=Api&P=0"
+                      : ""
+                  })`,
                 }}
               ></Img>
               <p style={{ fontWeight: "bold" }}>제목 {count.title}</p>

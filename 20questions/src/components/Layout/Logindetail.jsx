@@ -40,12 +40,15 @@ function LoginLayout() {
             placeholder="아이디"
             onChange={onChange}
             name="id"
+            maxLength="9"
             value={user.id.result}
           />
           <InputInfo
+            type="password"
             placeholder="비밀번호"
             onChange={onChange}
             name="password"
+            maxLength="9"
             value={user.password.result}
           />
         </Box>
