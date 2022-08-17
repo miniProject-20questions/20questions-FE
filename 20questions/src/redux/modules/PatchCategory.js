@@ -7,10 +7,17 @@ const initialState = {
   error: null, //
 }
 
+const token = localStorage.getItem("token");
 
 export const __PatchCategory = createAsyncThunk("patchcategory/patchCategory", async (payload, api) => {
+  const quizId = +payload.quizId
+  console.log( payload.category, quizId)
     try {
-    const data = await axios.patch(`http://juddyy.shop/api/question/:${payload.quizId}`, payload.category);
+    const data = await axios.patch(`http://juddyy.shop/api/quiz/${quizId}`, {category: payload.category}, {
+      headers: {
+        authorization: `BEAVER ${token}`,
+      },
+    });
    return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);

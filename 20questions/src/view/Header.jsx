@@ -77,7 +77,7 @@ let HeaderBox = styled.div`
     font-size: 33px;
   }
   div {
-    margin: auto 0 0 auto;
+    margin: auto 50px 0 auto;
     width: 100px;
     height: 30px;
     display: flex;
