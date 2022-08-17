@@ -57,9 +57,7 @@ function Detail() {
           </div>
         </Alse>
       </DetailBody>
-      {/* <HostComments /> */}
-      <GuestComments category={quiz.category} answer={quiz.answer} />
-      {/* {NowId === HostId ? <HostComments/> : <GuestComments />} */}
+      {quiz.guest === true ? <HostComments/> : <GuestComments category={quiz.category} answer={quiz.answer} />}
     </>
   );
 }
