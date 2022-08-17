@@ -189,7 +189,13 @@ function JoinLayout() {
 
           <ButtonArea>
             <ButtonFull onClick={Join}>회원가입</ButtonFull>
-            <Button>취소</Button>
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              취소
+            </Button>
           </ButtonArea>
         </Box>
       </Container>
