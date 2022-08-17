@@ -6,12 +6,14 @@ const initialState = {
   isLoading: false, //
   error: null, //
 };
-
+// const token = localStorage.getItem("token");
+// console.log(token);
 export const __getList = createAsyncThunk(
   "getlist/getList",
   async (payload, api) => {
     try {
       const data = await axios.get("http://juddyy.shop/api/quiz");
+
       return api.fulfillWithValue(data.data.result);
     } catch (e) {
       return api.rejectWithValue(e);
