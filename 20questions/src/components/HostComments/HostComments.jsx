@@ -11,16 +11,17 @@ const HostComments = () => {
     
     const params = useParams();
     const quizId = params.quizId
-
+    
     useEffect(() => {
         dispatch(__getContent(quizId));
     }, []);
     
-    const [questionId, setQuestionId] = useState(null)
+    const onclicO = (e) => {
+        dispatch(__PatchOX({solved: true, quizId, questionId:e.target.value}))
+    }
 
-    const onclickHandler = () => {
-        setQuestionId(Comment.solved)
-        dispatch(__PatchOX({solved: true}))
+    const onclicX = (e) => {
+        dispatch(__PatchOX({solved: false, quizId, questionId:e.target.value}))
     }
     return (
         <>
@@ -31,7 +32,7 @@ const HostComments = () => {
                         <div key={comment.count} style={{ 'width': '100%' }}>
                             {comments?.length === 0 ? '' :
                                 <div>
-                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button onClick={onclickHandler}>O</button><button onClick={dispatch(__PatchOX({solved: false, quizId, questionId: comment.questionId }))}>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
+                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button value={comment.questionId} type="button" onClick={onclicO}>O</button><button value={comment.questionId} onClick={onclicX}>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
                                 </div>}
                         </div>
                     ))}

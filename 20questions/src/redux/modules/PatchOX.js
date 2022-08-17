@@ -12,9 +12,8 @@ const token = localStorage.getItem("token");
 export const __PatchOX = createAsyncThunk("patchox/patchOX", async (payload, api) => {
   const quizId = +payload.quizId
   const questionId = +payload.questionId
-  
     try {
-    const data = await axios.patch(`http://juddyy.shop/api/question/:${quizId}/:${questionId}`, {solved:payload.solved}, {
+    const data = await axios.patch(`http://juddyy.shop/api/question/${quizId}/${questionId}`, {solved:payload.solved}, {
       headers: {
         authorization: `BEAVER ${token}`
       },

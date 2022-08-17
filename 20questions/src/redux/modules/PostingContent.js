@@ -10,9 +10,9 @@ const initialState = {
 const token = localStorage.getItem("token");
 
 export const __CommentPost = createAsyncThunk("contentpost/contentPost", async (payload, api) => {
-  console.log(payload)
+  const quizId = +payload.quizId
     try {
-    const data = await axios.post(`http://juddyy.shop/api/question/22`, payload, {
+    const data = await axios.post(`http://juddyy.shop/api/question/${quizId}`, {content:payload.content}, {
       headers: {
         authorization: `BEAVER ${token}`
       },

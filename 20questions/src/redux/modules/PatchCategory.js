@@ -9,8 +9,9 @@ const initialState = {
 
 
 export const __PatchCategory = createAsyncThunk("patchcategory/patchCategory", async (payload, api) => {
+  const quizId = +payload.quizId
     try {
-    const data = await axios.patch(`http://juddyy.shop/api/question/:${payload.quizId}`, payload.category);
+    const data = await axios.patch(`http://juddyy.shop/api/question/${quizId}`, {category: payload.category});
    return api.fulfillWithValue(data.data.result);
   } catch(e) {
   return api.rejectWithValue(e);
