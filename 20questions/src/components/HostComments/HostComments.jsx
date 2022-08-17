@@ -5,24 +5,27 @@ import { useParams } from "react-router-dom";
 import { __getContent } from "../../redux/modules/ContentList";
 import { __PatchOX } from "../../redux/modules/PatchOX";
 
-const HostComments = () => {
+const HostComments = (props) => {
     const comments = useSelector((state) => state.contentgetlist.data.data)
     const dispatch = useDispatch();
     
     const params = useParams();
     const quizId = params.quizId
-    
+
     useEffect(() => {
         dispatch(__getContent(quizId));
     }, []);
-    
+
     const onclicO = (e) => {
-        dispatch(__PatchOX({solved: true, quizId, questionId:e.target.value}))
-        
+        dispatch(__PatchOX({ solved: true, quizId, questionId: e.target.value }))
+        alert("선택이 완료되었습니다.")
+        window.location.replace(`/detail/${quizId}`);
     }
 
     const onclicX = (e) => {
-        dispatch(__PatchOX({solved: false, quizId, questionId:e.target.value}))
+        dispatch(__PatchOX({ solved: false, quizId, questionId: e.target.value }))
+        alert("선택이 완료되었습니다.")
+        window.location.replace(`/detail/${quizId}`);
     }
     return (
         <>
@@ -31,10 +34,15 @@ const HostComments = () => {
                     {comments?.length === 0 ? <div>등록된 질문이 없습니다.</div> : ''}
                     {comments?.map((comment) => (
                         <div key={comment.count} style={{ 'width': '100%' }}>
-                            {comments?.length === 0 ? '' :
-                                <div>
-                                    {comment.solved === null ? <div><Checkdiv><div>{comment.content}</div><p><button value={comment.questionId} type="button" onClick={onclicO}>O</button><button value={comment.questionId} onClick={onclicX}>X</button></p></Checkdiv></div> : <div>{comment.solved === true ? <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> : <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
-                                </div>}
+                            <div>
+                                {comment.solved === null ?
+                                    <div><Checkdiv><div>{comment.content}</div>{props.category !== 7 ?
+                                            <p><button value={comment.questionId} type="button" onClick={onclicO}>O</button><button value={comment.questionId} onClick={onclicX}>X</button></p> :
+                                            <p style={{"fontWeight": "bold", "color": "red"}}>"정답입니다!"</p>}</Checkdiv></div> :
+                                    <div>{comment.solved === true ?
+                                        <DoneCheckdiv><div>{comment.content}</div><p><button>O</button></p></DoneCheckdiv> :
+                                        <DoneCheckdiv>{comment.content}<p><button>X</button></p></DoneCheckdiv>}</div>}
+                            </div>
                         </div>
                     ))}
                 </HostBody>

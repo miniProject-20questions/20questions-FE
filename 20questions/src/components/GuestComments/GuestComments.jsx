@@ -31,9 +31,11 @@ const GuestComments = (props) => {
       window.location.replace(`/detail/${quizId}`);
     }
   };
-
   useEffect(() => {
     dispatch(__getContent(quizId));
+    if(comments?.length === 20) {
+      dispatch(__PatchCategory({ category: 7, quizId }));
+    }
   }, []);
 
   return (

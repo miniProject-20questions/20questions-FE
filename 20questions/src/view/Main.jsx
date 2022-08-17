@@ -66,7 +66,7 @@ function Main() {
                   height: "100px",
                   backgroundImage: `url(${
                     count.category === 1
-                      ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660"
+                      ? "https://user-images.githubusercontent.com/109029407/185194912-2f6f152e-ce92-4125-a962-4e9a9194396e.png"
                       : count.category === 2
                       ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
                       : count.category === 3
@@ -106,7 +106,7 @@ function Main() {
                   height: "100px",
                   backgroundImage: `url(${
                     count.category === 1
-                      ? "http://i0.wp.com/slownews.kr/wp-content/uploads/2015/12/22645A505663F2BF10F9AE_compressed.jpg?resize=480%2C660"
+                      ? "https://user-images.githubusercontent.com/109029407/185194912-2f6f152e-ce92-4125-a962-4e9a9194396e.png"
                       : count.category === 2
                       ? "https://t1.daumcdn.net/cfile/tistory/2507993B576C7E9D15"
                       : count.category === 3
@@ -137,7 +137,10 @@ function Main() {
       </IngList>
       <PostBtn
         onClick={() => {
-          setPostingModal(true);
+          if (token === null) {
+            alert("회원가입이 필요합니다.");
+            return navigate("/");
+          } else return setPostingModal(true);
         }}
       >
         글쓰기
