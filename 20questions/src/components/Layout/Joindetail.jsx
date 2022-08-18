@@ -12,10 +12,7 @@ function JoinLayout() {
     confirm: "",
     nickname: "",
   });
-  //state
-  const [idvalidate, setIdvalidate] = useState(false);
-  const [pwvalidate, setPwvalidate] = useState(false);
-  const [nickcheck, setNickcheck] = useState(false);
+
   // validate
   const IdChange = (e) => {
     const { value } = e.target;
@@ -23,27 +20,15 @@ function JoinLayout() {
       ...user,
       id: value,
     });
-
-    const regExp = /[a-zA-Z0-9]{4,9}$/;
-    if (regExp.test(user.id)) {
-      setIdvalidate(true);
-    } else {
-      setIdvalidate(false);
-    }
   };
+  const regExp = /^[A-Za-z0-9]{4,9}$/;
+
   const PwChange = (e) => {
     const { value } = e.target;
     setUser({
       ...user,
       password: value,
     });
-
-    const regExp = /[a-zA-Z0-9]{4,9}$/;
-    if (regExp.test(user.password)) {
-      setPwvalidate(true);
-    } else {
-      setPwvalidate(false);
-    }
   };
 
   const CofirmChange = (e) => {
@@ -60,11 +45,6 @@ function JoinLayout() {
       ...user,
       nickname: value,
     });
-    if (user.nickname.length >= 2 && user.nickname.length <= 8) {
-      setNickcheck(true);
-    } else {
-      setNickcheck(false);
-    }
   };
   console.log(user);
 
@@ -72,52 +52,47 @@ function JoinLayout() {
 
   const navigate = useNavigate();
   const Join = (e) => {
-    if (user.password === user.confirm && user.nickname.length >= 2) {
-      axios
-        .post("http://juddyy.shop/api/auth/signup", user)
-        .then((res) => {
-          if (res.data === "SUCCES");
-          alert("가입완료");
-        })
-        .catch((error) => {
-          const type = error.response.data;
-          switch (type) {
-            case "EXIST_NICK":
-              alert("이미 사용중인 닉네임입니다.");
-              break;
-            case "BAD_VALIDATION_ID":
-              alert("ID 조건이 맞지 않습니다.");
-              break;
-            case "BAD_VALIDATION_PW":
-              alert("PW 조건이 맞지 않습니다.");
-              break;
-            case "BAD_VALIDATION_NICK":
-              alert("NICK 조건이 맞지 않습니다.");
-              break;
-            default:
-          }
-        });
-      navigate("/login");
-      setUser({
-        id: "",
-        password: "",
-        confirm: "",
-        nickname: "",
+    axios
+      .post("http://juddyy.shop/api/auth/signup", user)
+      .then((res) => {
+        if (res.data === "SUCCES");
+        alert("가입완료");
+        navigate("/login");
+      })
+      .catch((error) => {
+        const type = error.response.data;
+        switch (type) {
+          case "EXIST_NICK":
+            alert("이미 사용중인 닉네임입니다.");
+            break;
+          case "BAD_VALIDATION_ID":
+            alert("ID 조건이 맞지 않습니다.");
+            break;
+          case "BAD_VALIDATION_PW":
+            alert("PW 조건이 맞지 않습니다.");
+            break;
+          case "BAD_VALIDATION_NICK":
+            alert("NICK 조건이 맞지 않습니다.");
+            break;
+          case "BAD_REQUEST":
+            alert("내용을 입력해주세요.");
+            break;
+          default:
+        }
       });
-    } else if (user.password !== user.confirm) {
-      alert("비밀번호가 일치하지 않습니다.");
-    } else if (user.nickname.length < 2) {
-      alert("닉네임의 글자수가 맞지 않습니다.");
-    } else {
-      alert("값을 입력해주세요");
-    }
+
+    setUser({
+      id: "",
+      password: "",
+      confirm: "",
+      nickname: "",
+    });
   };
 
   const Dublecheck = (e) => {
     axios
       .post("http://juddyy.shop/api/auth/idCheck", { id: user.id })
       .then((res) => {
-        console.log(res);
         if (res.data === "SUCCES") {
           alert("사용가능한 아이디입니다.");
         }
@@ -152,7 +127,7 @@ function JoinLayout() {
             />
             <ValidateBtn onClick={Dublecheck}>중복 확인</ValidateBtn>
           </div>
-          {idvalidate ? (
+          {regExp.test(user.id) ? (
             <InfoP style={{ color: "blue" }}>안전한 아이디입니다.</InfoP>
           ) : (
             <InfoP>아이디는 4-9자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
@@ -165,7 +140,7 @@ function JoinLayout() {
             value={user.password.result}
             maxLength="9"
           />
-          {pwvalidate ? (
+          {regExp.test(user.password) ? (
             <InfoP style={{ color: "blue" }}>안전한 비밀번호입니다.</InfoP>
           ) : (
             <InfoP>비밀번호는 4-9자의 알파벳과 숫자만 입력 가능합니다.</InfoP>
@@ -178,14 +153,24 @@ function JoinLayout() {
             value={user.confirm.result}
             maxLength="9"
           />
+          {user.password === user.confirm && user.confirm.length > 1 ? (
+            <InfoP style={{ color: "blue" }}>비밀번호가 일치합니다.</InfoP>
+          ) : (
+            <InfoP>비밀번호를 재확인 해주세요.</InfoP>
+          )}
 
           <InputInfo
-            placeholder="닉네임은 2-6자 입력"
+            placeholder="닉네임은 2-9자 입력"
             onChange={nickCheck}
             name="nickname"
             maxLength="8"
             value={user.nickname.result}
           />
+          {user.nickname.length >= 2 && user.nickname.length <= 9 ? (
+            <InfoP style={{ color: "blue" }}>사용가능한 닉네임 입니다.</InfoP>
+          ) : (
+            <InfoP>닉네임 형식을 확인해주세요.</InfoP>
+          )}
 
           <ButtonArea>
             <ButtonFull onClick={Join}>회원가입</ButtonFull>
