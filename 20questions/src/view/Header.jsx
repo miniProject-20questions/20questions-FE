@@ -16,7 +16,7 @@ function Header() {
           navigate("/");
         }}
       >
-        20 Question.
+        20 Questions
       </p>
       <div>
         {token ? (
@@ -75,6 +75,7 @@ let HeaderBox = styled.div`
   p {
     margin: 38px auto 0 auto;
     font-size: 33px;
+    font-weight: bold;
   }
   div {
     margin: auto 50px 0 auto;

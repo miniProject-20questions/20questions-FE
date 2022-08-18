@@ -4,7 +4,6 @@ import GuestComments from "../components/GuestComments/GuestComments";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import HostComments from "../components/HostComments/HostComments";
-import { type } from "@testing-library/user-event/dist/type";
 
 function Detail() {
   const token = localStorage.getItem("token");
@@ -43,14 +42,41 @@ function Detail() {
       .then((res) => alert("삭제되었습니다."));
     window.location.replace("/");
   };
+
+  let category = quiz.category;
+  switch (category) {
+    case 1:
+      category = "인물";
+      break;
+    case 2:
+      category = "동물";
+      break;
+    case 3:
+      category = "영화";
+      break;
+    case 4:
+      category = "음악";
+      break;
+    case 5:
+      category = "가전제품";
+      break;
+    case 6:
+      category = "기타";
+      break;
+    case 7:
+      category = "종료된 퀴즈";
+      break;
+    default:
+  }
   return (
     <>
       <DetailBody>
         <TopContainer>
-          <Cetegoty>카테고리: {quiz.category}</Cetegoty>
+          <Cetegoty>카테고리: {category}</Cetegoty>
           {quiz.category === 7 ? (
-            <div style={{ color: "red", margin: "auto" }}>
-              정답은 {quiz.answer} 입니다!
+            <div style={{ color: "red", margin: "auto", fontSize: "20px" }}>
+              정답은 <span style={{ fontWeight: "bold" }}>{quiz.answer}</span>{" "}
+              입니다!
             </div>
           ) : (
             ""
@@ -68,7 +94,7 @@ function Detail() {
         </Alse>
       </DetailBody>
       {quiz.guest === false ? (
-        <HostComments />
+        <HostComments category={quiz.category} />
       ) : (
         <GuestComments category={quiz.category} answer={quiz.answer} />
       )}

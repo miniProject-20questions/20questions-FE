@@ -22,7 +22,12 @@ export const __CommentPost = createAsyncThunk(
             authorization: `BEAVER ${token}`,
           },
         }
-      );
+      ).then((res) => {
+       if(res.data === "SUCCESS"){
+        alert("질문이 등록되었습니다.")
+       }
+      })
+      
       return api.fulfillWithValue(data.data.result);
     } catch (e) {
       if (e.response.data === "BAD_REQUEST") {
