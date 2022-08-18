@@ -96,7 +96,7 @@ function Main() {
               key={count.quizId}
               onClick={() => {
                 if (token === null) {
-                  alert("회원가입이 필요합니다.");
+                  alert("로그인이 필요합니다.");
                   return navigate("/");
                 } else return navigate(`/detail/${count.quizId}`);
               }}
@@ -139,7 +139,7 @@ function Main() {
       <PostBtn
         onClick={() => {
           if (token === null) {
-            alert("회원가입이 필요합니다.");
+            alert("로그인이 필요합니다.");
             return navigate("/");
           } else return setPostingModal(true);
         }}
